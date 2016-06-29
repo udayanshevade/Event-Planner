@@ -1,0 +1,117 @@
+<section class="create-section" layout="column" layout-align="center center" ng-controller="EditCtrl as edit" flex>
+
+  <!-- Loading spinner -->
+  <div class="loading-signal" ng-if="edit.loading" layout="row" layout-align="space-around center">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+  <div class="back-link-row">
+    <a ui-sref="event({ eventID: edit.eventID })" class="link">
+      <md-button aria-label="Back"
+      class="md-icon-button back__button backward_anim launch">
+        <md-icon class="material-icons step"
+          ng-class="md-18">
+            keyboard_return
+        </md-icon>
+      </md-button>
+    </a>
+  </div>
+
+  <section class="form-container form-container--md">
+    <md-content>
+      <div>
+        <form name="editForm" class="form create-form" ng-submit="edit.editEvent()">
+          <div layout="row" class="name__row">
+            <md-input-container flex>
+              <label class="form__text form__label">event name</label>
+              <input class="form__event-name edit-name-input" name="eventName" required autocomplete="off" autofocus ng-model="edit.name" valid-ref>
+              <aside ng-messages="editForm.eventName.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div class="date__row">
+            <label class="form__text form__label">
+              when is it
+            </label>
+            <md-content>
+              <md-datepicker ng-model="edit.date" md-min-date="edit.currentDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </md-content>
+          </div>
+          <div layout-gt-xs="row" layout-align-gt-xs="space-between center">
+            <md-input-container>
+              <label class="form__text form__label">starts</label>
+              <input class="form__event-start" name="startTime" ng-model="edit.startTime" ui-timepicker required>
+            </md-input-container>
+            <md-input-container>
+              <label class="form__text form__label">ends</label>
+              <input class="form__event-end" name="endTime" ng-model="edit.endTime" ui-timepicker required>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">what is the occasion</label>
+              <input class="form__event-type" name="eventType" list="eventTypes" required autocomplete="off" ng-model="edit.type" valid-ref>
+              <datalist id="eventTypes">
+                <option ng-repeat="type in edit.defaultTypes" value="{{ type }}"></option>
+              </datalist>
+              <aside ng-messages="editForm.eventType.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">where do we go</label>
+              <input class="form__event-location" name="location" required autocomplete="off" ng-model="edit.location" valid-ref>
+              <aside ng-messages="editForm.location.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+            <section id="map"></section>
+          </div>
+          <div>
+            <label class="form__text form__label">who is coming</label>
+            <tags-input ng-model="edit.guestList" add-on-paste="true" placeholder="Add a guest" replace-spaces-with-dashes="false">
+              <auto-complete source="edit.loadContacts($query)"></auto-complete>
+            </tags-input>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">include a message</label>
+              <textarea  class="md-block form__text form__message" name="message" autocomplete="off" ng-model="edit.message"></textarea>
+              <aside ng-messages="editForm.message.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">who is hosting</label>
+              <input class="form__event-name" name="hostName" required autocomplete="off" ng-model="edit.host" valid-ref>
+              <aside ng-messages="editForm.hostName.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="space-around center">
+            <md-button aria-label="Reset"
+            class="md-icon-button reset__button launch" ng-click="edit.reset()">
+              <md-icon class="material-icons step rotate__anim"
+                ng-class="md-18">
+                  autorenew
+              </md-icon>
+            </md-button>
+
+            <md-button aria-label="Edit"
+              type="submit"
+              class="md-icon-button forward__anim create__button launch">
+                <md-icon class="material-icons"
+                  ng-class="md-18">
+                    send
+                </md-icon>
+            </md-button>
+          </div>
+        </form>
+  </section>
+</section>

@@ -1,0 +1,113 @@
+<section class="create-section" layout="column" layout-align="center center" ng-controller="CreateCtrl as create" flex>
+
+  <div class="back-link-row">
+    <a ui-sref="dashboard" class="link">
+      <md-button aria-label="Back"
+      class="md-icon-button back__button backward_anim launch">
+        <md-icon class="material-icons step"
+          ng-class="md-18">
+            keyboard_return
+        </md-icon>
+      </md-button>
+    </a>
+  </div>
+
+  <section class="form-container form-container--md">
+    <md-content>
+      <div>
+        <form name="createForm" class="form create-form" ng-submit="create.createEvent()">
+          <div layout="row" class="name__row">
+            <md-input-container flex>
+              <label class="form__text form__label">name the event</label>
+              <input class="form__event-name create-name-input" name="eventName" required autocomplete="off" autofocus ng-model="create.name" valid-ref>
+              <aside ng-messages="createForm.eventName.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div class="date__row">
+            <label class="form__text form__label">
+              when is it
+            </label>
+            <md-content>
+              <md-datepicker ng-model="create.date" md-min-date="create.currentDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </md-content>
+          </div>
+          <div layout-gt-xs="row" layout-align-gt-xs="space-between center">
+            <md-input-container>
+              <label class="form__text form__label">starts</label>
+              <input class="form__event-start" name="startTime" ng-model="create.startTime" ui-timepicker required>
+            </md-input-container>
+            <md-input-container>
+              <label class="form__text form__label">ends</label>
+              <input class="form__event-end" name="endTime" ng-model="create.endTime" ui-timepicker required>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">what is the occasion</label>
+              <input class="form__event-type" name="eventType" list="eventTypes" required autocomplete="off" ng-model="create.type" valid-ref>
+              <datalist id="eventTypes">
+                <option ng-repeat="type in create.defaultTypes" value="{{ type }}"></option>
+              </datalist>
+              <aside ng-messages="createForm.eventType.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">where do we go</label>
+              <input class="form__event-location" name="location" required autocomplete="off" ng-model="create.location" valid-ref>
+              <aside ng-messages="createForm.location.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+            <section id="map"></section>
+          </div>
+          <div>
+            <label class="form__text form__label">who is coming</label>
+            <tags-input ng-model="create.guestList" add-on-paste="true" placeholder="Add a guest" replace-spaces-with-dashes="false">
+              <auto-complete source="create.loadContacts($query)"></auto-complete>
+            </tags-input>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">include a message</label>
+              <textarea  class="md-block form__text form__message" name="message" required autocomplete="off" ng-model="create.message"></textarea>
+              <aside ng-messages="createForm.message.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label class="form__text form__label">who is hosting</label>
+              <input class="form__event-name" name="hostName" required autocomplete="off" ng-model="create.host" valid-ref>
+              <aside ng-messages="createForm.hostName.$error">
+                <div class="form__feedback--error" ng-message="validRef">must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+              </aside>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="space-around center">
+            <a ui-sref="dashboard" class="link">
+              <md-button aria-label="Back"
+              class="md-icon-button back__button launch">
+                <md-icon class="material-icons step backward_anim"
+                  ng-class="md-18">
+                    keyboard_return
+                </md-icon>
+              </md-button>
+            </a>
+            <md-button aria-label="Create"
+              type="submit"
+              class="md-icon-button forward__anim create__button launch">
+                <md-icon class="material-icons"
+                  ng-class="md-18">
+                    send
+                </md-icon>
+            </md-button>
+          </div>
+        </form>
+  </section>
+</section>

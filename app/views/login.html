@@ -1,0 +1,62 @@
+<section class="app-gate-form" layout="row" layout-align="center center" ng-controller="LoginCtrl as login">
+
+  <section class="form-container">
+    <md-content>
+      <div layout-gt-xs="row" layout-align-gt-xs="space-between center">
+        <a ui-sref="register" class="link">
+          <h3 class="form__text">join</h3>
+          <md-button aria-label="Register"
+          class="md-icon-button up__anim launch">
+            <md-icon class="material-icons step"
+              ng-class="md-18">
+                person_add
+            </md-icon>
+          </md-button>
+        </a>
+        <h2 class="form-title" flex-order-gt-xs="-1">login</h2>
+      </div>
+      <div>
+        <form name="loginForm" class="form login-form" ng-submit="login.loginUser()">
+          <div layout-gt="row">
+            <md-input-container class="md-block" flex>
+              <label class="form__text form__label">username</label>
+              <input class="form__username" ng-model="login.username" autofocus ng-disabled="login.email.length">
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <span class="md-block form__text form__meta" flex>or</span>
+          </div>
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label class="form__text form__label">email</label>
+              <input type="email" class="form__email" ng-model="login.email" ng-disabled="login.username.length">
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <span class="md-block form__text form__meta" flex>&</span>
+          </div>
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+            <label class="form__text form__label">password</label>
+            <input type="password" class="form__password" ng-model="login.password">
+            </md-input-container>
+          </div>
+          <div layout-gt="row">
+            <span class="md-block form__text form__meta form__feedback--error" ng-if="login.failure">please try again</span>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-button aria-label="Login"
+              type="submit"
+              class="form__submit forward__anim md-icon-button launch">
+                <md-icon class="material-icons step"
+                      ng-class="md-18">
+                        vpn_key
+                </md-icon>
+            </md-button>
+          </div>
+        </form>
+      </div>
+    </md-content>
+  </section>
+
+</section>

@@ -16,14 +16,17 @@ angular.module('eventPlannerApp')
 
     usercreds.user.$loaded(function() {
       self.username = usercreds.name || usercreds.user.$id;
-      self.createdEvents = usercreds.createdEvents;
+    });
 
+    usercreds.createdEvents.$loaded(function() {
+      self.createdEvents = usercreds.createdEvents;
+      self.openTab = self.createdEvents.length ? 0 : 1;
       self.loading = false;
     });
 
-    this.delete = function(event) {
-      console.log('Deleting...');
-      this.createdEvents.$remove(event);
-    };
+    usercreds.invitedEvents.$loaded(function() {
+      self.invitedEvents = usercreds.invitedEvents;
+      self.loading = false;
+    });
 
 }]);

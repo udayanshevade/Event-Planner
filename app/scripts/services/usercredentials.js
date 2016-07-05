@@ -17,7 +17,8 @@ angular.module('eventPlannerApp')
       this.user = $firebaseObject(self.ref);
       this.accountRef = this.ref.child('account');
       this.contactsRef = this.ref.child('contacts');
-      this.contacts = $firebaseArray(self.contactsRef);
+      this.contacts = $firebaseObject(self.contactsRef);
+      this.contactsArray = $firebaseArray(self.contactsRef);
       this.account = $firebaseObject(self.accountRef);
       this.updateCredentials();
       this.loggedIn = true;
@@ -26,6 +27,7 @@ angular.module('eventPlannerApp')
       this.createdEvents = $firebaseArray(self.createdEventsRef);
       this.createdEventsObject = $firebaseObject(self.createdEventsRef);
       this.invitedEvents = $firebaseArray(self.invitedEventsRef);
+      this.invitedEventsObject = $firebaseObject(self.createdEventsRef);
     };
 
     this.logout = function() {
@@ -41,7 +43,8 @@ angular.module('eventPlannerApp')
         self.password = self.user.account.password;
         self.employer = self.user.account.employer;
         self.position = self.user.account.position;
-        self.birthday = new Date(self.user.account.birthday);
+        self.blurb = self.user.account.blurb;
+        self.birthday = self.user.account.birthday ? new Date(self.user.account.birthday) : null;
       });
     };
 }]);

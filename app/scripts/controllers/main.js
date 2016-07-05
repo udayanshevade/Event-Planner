@@ -41,16 +41,22 @@ angular.module('eventPlannerApp')
 
     // Firebase object of users
     $scope.users = $firebaseObject($scope.usersRef);
+    $scope.usersArray = $firebaseArray($scope.usersRef);
     // Firebase object of events
-    $scope.events = $firebaseObject($scope.eventsRef);
-
-    console.log(usercreds.user);
+    $scope.events = $firebaseArray($scope.eventsRef);
+    $scope.eventsObject = $firebaseObject($scope.eventsRef);
 
     console.log($scope.users);
 
     // navigate to a new target state
     $scope.changeState = function(target, options) {
-      if (options) {
+      console.log($rootScope.previousStates);
+      if (target === 'previous' && $rootScope.previousStates) {
+        $rootScope.backing = true;
+        var previousState = $rootScope.previousStates.pop();
+        $scope.changeState(previousState.name,
+          previousState.params);
+      } else if (options) {
         $state.go(target, options);
       } else {
         $state.go(target);

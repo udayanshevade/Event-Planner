@@ -26,8 +26,6 @@ html, body {
 main {
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(235,235,235,0.3);
 }
 
 ::-webkit-scrollbar {
@@ -149,7 +147,7 @@ md-toolbar:not(.md-menu-toolbar) {
 
 .form-container {
   margin: 1rem auto;
-  padding: 2rem 3rem;
+  padding: 1rem 2rem;
   width: calc(100% - 2rem);
   max-width: 350px;
   background-color: #fff;
@@ -162,6 +160,10 @@ md-toolbar:not(.md-menu-toolbar) {
   margin-bottom: 3rem;
 }
 
+.form__row {
+  margin: 1rem 0;
+}
+
 .form-title {
   margin: 1.5rem 0;
   font-size: 2.25rem;
@@ -170,7 +172,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .form__text {
-  display: inline-block;
+  display: block;
   margin: 1.5rem 0;
   color: #aaa;
   font-size: 2rem;
@@ -178,18 +180,34 @@ md-toolbar:not(.md-menu-toolbar) {
   font-weight: 600;
 }
 
+.hint {
+  font-size: 1.2rem;
+  color: rgba(0,0,0,0.6);
+}
+
+.message__row {
+  margin: 2rem 0 1rem;
+}
+
 .form__message {
+  margin: 0;
   font-variant: normal;
   font-weight: lighter;
 }
 
 .form__label {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.25rem;
 }
 
 .form__meta {
   color: #999;
   margin: 0 0 1.8rem;
+}
+
+.form__invalid {
+  margin: 0 0 1.5rem;
+  font-size: 1.45rem;
+  font-weight: 400;
 }
 
 .form__submit {
@@ -298,11 +316,6 @@ md-input-container[disabled] {
   border-bottom: 1px solid rgba(50,50,50,0.1);
 }
 
-.app-title {
-  font: 2.5rem "Open Sans", sans-serif;
-  color: #212121;
-}
-
 /* BEGIN dashboard styles */
 
 md-toolbar {
@@ -318,9 +331,19 @@ md-toolbar {
 
 .md-toolbar-tools {
 
+  .app-title {
+    font: 1.8rem "Open Sans", sans-serif;
+    color: #212121;
+  }
+
   .dash__title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     text-transform: uppercase;
+  }
+
+  .dash__username {
+    text-transform: none;
+    font-weight: bolder;
   }
 }
 
@@ -339,6 +362,9 @@ md-toolbar {
 }
 
 .create__icon {
+  font-size: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
   @include position(relative, -0.15rem -0.15rem null null);
 }
 
@@ -361,7 +387,7 @@ md-toolbar {
     text-decoration: none;
 
     .pencil-down__anim {
-      @include transform(rotate(-20deg));
+      @include transform(rotate(-30deg));
     }
 
   }
@@ -369,6 +395,8 @@ md-toolbar {
 
 .user-summary__section {
   width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .calendar__icon {
@@ -381,11 +409,18 @@ md-toolbar {
   padding: 0.5rem 0 0;
 }
 
-.date__row {
-  padding: 0 0 1.8rem;
-  margin: 0 0 1.8rem;
+.dates__row {
+  margin: 2rem 0;
+}
 
-  input {
+.date__row {
+
+  md-content {
+    width: 190px;
+  }
+
+  .md-datepicker-input {
+    width: 130px;
     margin: auto;
     padding: 0;
     &:focus {
@@ -394,15 +429,42 @@ md-toolbar {
   }
 }
 
+.event-date__preview {
+  margin: 4rem 0 0;
+  font-size: 2.25rem;
+  font-variant: small-caps;
+  font-weight: 300;
+  color: rgba(100,100,100,0.8);
+}
+
+.times__row {
+
+  md-input-container {
+    margin: 3rem auto 0;
+  }
+
+  .ui-timepicker-input {
+    width: 120px;
+    margin: 0 auto;
+    text-align: center;
+    float: none;
+  }
+}
+
+.guests__row {
+  margin: 0 0 2rem;
+}
+
 .ui-timepicker-wrapper {
-  width: 100%;
+
+  width: 120px;
 }
 
 tags-input {
   .tags {
     box-shadow: none;
     outline: 0;
-    margin: 1rem 0;
+    margin: 1rem 0 0;
     padding: 0.5rem 0;
     border: 1px solid rgba(0,0,0,0.2);
     &.focused {
@@ -455,7 +517,8 @@ md-grid-list {
   border-left: 2px solid rgba(0,0,0,0.1);
 }
 
-.event-preview {
+.event-preview,
+.user-preview {
   width: 100%;
   height: 100%;
   padding: 1rem 2rem;
@@ -478,6 +541,10 @@ md-grid-list {
       background-color: #fff;
     }
   }
+}
+
+.eye__icon {
+  font-size: 2.2rem;
 }
 
 .event-preview__title {
@@ -511,6 +578,14 @@ md-grid-list {
 
 /* Account styles */
 
+.email__row {
+  margin: 3rem 0 0;
+}
+
+.birthday__row {
+  margin: 0 0 4rem;
+}
+
 .md-button {
   &.md-datepicker-button {
     margin: 0;
@@ -534,8 +609,7 @@ md-grid-list {
 }
 
 .event-inner-container {
-  padding: 1.25rem 2.25rem;
-  border: 1px solid rgba(150,150,150,0.4);
+  padding: 0.5rem 1.5rem;
 }
 
 .event-header {
@@ -555,20 +629,28 @@ md-grid-list {
   &:before, &:after {
     display: block;
     content: "";
-    width: 50px;
-    border-top: 1px solid rgba(150,150,150,0.3);
+    width: 0;
+    border-top: 1px solid rgba(75,75,75,0.5);
     z-index: -1;
+    @include transition-property(width, position);
+    @include transition-duration(0.3s);
+    @include transition-delay(0.2s);
+    @include transition-timing-function(ease-in);
   }
+
+}
+
+.title--flair {
 
   &:before {
     @include position(absolute, 50% 100% null null);
+    width: 60px;
   }
 
   &:after {
     @include position(absolute, 50% null null 100%);
+    width: 60px;
   }
-
-
 }
 
 .event-type {
@@ -578,26 +660,32 @@ md-grid-list {
 }
 
 .event-date {
-  font-size: 1.75rem;
-  font-weight: lighter;
+  margin: 1rem 0;
+  font-size: 1.65rem;
 }
 
 .event-location {
   margin: 2rem 0;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
 }
 
 .event-host {
+  color: #717171;
   font-size: 1.45rem;
   font-weight: lighter;
-  text-transform: uppercase;
+  text-decoration: underline;
+
+  &:hover {
+    color: #212121;
+  }
 }
 
 .event-message {
+  color: rgba(0,0,0,0.75);
   max-width: 350px;
   margin: 0 auto 1rem;
-  font-size: 1.4rem;
-  font-weight: lighter;
+  font-size: 1.5rem;
+  font-weight: 400;
   text-align: justify;
 }
 
@@ -606,19 +694,20 @@ md-grid-list {
 }
 
 .event-times {
-  margin: 0 auto;
-  padding: 0 0 1rem;
-  max-width: 180px;
+  margin: 1rem auto 0.75rem;
+  max-width: 350px;
 }
 
 .event-time {
+  margin: 2rem auto;
   font-size: 1.6rem;
   font-weight: bold;
 }
 
 .event-time-label {
   display: block;
-  font-weight: lighter;
+  font-size: 1.85rem;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -628,8 +717,9 @@ md-grid-list {
 }
 
 .guest-list-item {
+  background-color: rgba(235,235,235,0.2);
   &:hover {
-    background-color: rgba(235,235,235,0.2);
+    background-color: rgba(235,235,235,0.4);
   }
 }
 
@@ -640,7 +730,7 @@ md-grid-list {
 .guest-link {
   padding: 1.5rem 0;
   text-decoration: none;
-  color: #212121;
+  color: #717171;
 
   &:hover, &:focus, &:visited, &:active {
     text-decoration: none;
@@ -650,10 +740,89 @@ md-grid-list {
 
 .guest-name {
   font-size: 2rem;
+  text-decoration: underline;
 }
+
+/* Users section */
+
+.users-header-title {
+  font-size: 1.8rem;
+  font-variant: small-caps;
+  margin: 1rem 0 0.5rem;
+  color: rgba(100, 100, 100, 0.8);
+}
+
+.users-list-section {
+  padding: 1rem 1.5rem;
+}
+
+md-list-item {
+  background-color: rgba(215,215,215,0.2);
+  &:nth-of-type(odd) {
+    background-color: rgba(245,245,245,0.2);
+  }
+  &:hover {
+    background-color: rgba(235,235,235,0.4);
+  }
+}
+
+/* User section */
+
+.user-username {
+  font-size: 1.6rem;
+  color: #b6b6b6;
+}
+
+.user-name {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.user-email {
+  font-size: 1.5rem;
+  font-weight: lighter;
+  margin: 0 0 0.25rem;
+}
+
+.user-birthday {
+  font-size: 1.75rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.user-employer {
+  font-size: 1.5rem;
+  font-weight: lighter;
+  margin: 1rem 0 0.25rem;
+}
+
+.user-position {
+  font-size: 1.6rem;
+  margin: 0.25rem 0 1rem;
+}
+
+.user-blurb {
+  font-size: 1.5rem;
+}
+
+.contact-toggle {
+  margin: 2.5rem 0 1.5rem;
+}
+
+.contact-toggle-text {
+  font-size: 1.35rem;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+
+  .form-container {
+    padding: 2rem 3rem;
+  }
+
+  .event-inner-container {
+    padding: 1.5rem 2.25rem;
+  }
 
   .header-container {
     padding: 0;

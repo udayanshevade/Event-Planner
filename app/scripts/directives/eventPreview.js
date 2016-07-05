@@ -16,8 +16,11 @@ angular.module('eventPlannerApp')
       controller: 'EventPreviewCtrl',
       controllerAs: 'eventPreview',
       scope: {
-        eventData: '=',
-        eventsRef: '='
+        eventDetails: '=',
+        eventsRef: '=',
+        users: '=',
+        usersRef: '=',
+        events: '='
       }
     };
 });

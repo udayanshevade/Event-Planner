@@ -8,7 +8,7 @@
  * Controller of the eventPlannerApp
  */
 angular.module('eventPlannerApp')
-  .controller('EditCtrl', ['$scope', '$stateParams', 'usercreds', function ($scope, $stateParams, usercreds) {
+  .controller('EditCtrl', ['$rootScope', '$scope', '$stateParams', 'usercreds', '$firebaseArray', function ($rootScope, $scope, $stateParams, usercreds, $firebaseArray) {
 
     var self = this;
 
@@ -16,10 +16,11 @@ angular.module('eventPlannerApp')
 
     self.loading = true;
 
-    $scope.events.$loaded(function() {
-      for (var key in $scope.events) {
+    $scope.eventsObject.$loaded(function() {
+      for (var key in $scope.eventsObject) {
         if (key === $stateParams.eventID) {
-          self.details = $scope.events[key];
+          self.details = $scope.eventsObject[key];
+          self.blockEditing();
         }
       }
 
@@ -43,10 +44,15 @@ angular.module('eventPlannerApp')
       this.host = this.details.host;
       this.location = this.details.location;
       this.type = this.details.type;
-      this.date = new Date(self.details.date);
 
-      this.startTime = new Date(self.details.date + ' ' + self.details.startTime);
-      this.endTime = new Date(self.details.date + ' ' + self.details.endTime);
+      this.currentTime = new Date();
+      this.currentDate = new Date();
+      this.currentDate.setHours(0,0,0,0);
+
+      this.startDate = new Date(self.details.startDate) || null;
+      this.endDate = new Date(self.details.endDate) || null;
+      this.startTime = new Date(self.details.startDate + ' ' + self.details.startTime);
+      this.endTime = new Date(self.details.endDate + ' ' + self.details.endTime);
 
       this.defaultTypes = [
         'Conference',
@@ -58,7 +64,8 @@ angular.module('eventPlannerApp')
       this.message = this.details.message || '';
 
       this.guestList = this.details.guests || [];
-      this.currentDate = new Date();
+      this.removedGuests = [];
+
       console.log('Resetting fields');
     };
 
@@ -69,7 +76,9 @@ angular.module('eventPlannerApp')
       // for jshint's sake
       console.log(query);
 
-      var contacts = usercreds.contacts;
+      var contacts = usercreds.contactsArray.map(function(elem) {
+        return elem.$id;
+      });
 
       console.log(contacts);
 
@@ -81,54 +90,156 @@ angular.module('eventPlannerApp')
      */
     this.editEvent = function() {
 
-      // convert dates to strings for storage in Firebase
-      this.dateString = this.date.toDateString();
-      this.startTimeString = this.startTime.toTimeString();
-      this.endTimeString = this.endTime.toTimeString();
+      if ($scope.editForm.$valid) {
 
-      // construt event for storage
-      var event = {
-        creator: self.creator,
-        name: self.name,
-        host: self.host,
-        location: self.location,
-        date: self.dateString,
-        startTime: self.startTimeString,
-        endTime: self.endTimeString,
-        type: self.type,
-        guests: self.guestList,
-        message: self.message
-      };
+        // convert dates to strings for storage in Firebase
+        this.startDateString = this.startDate.toDateString();
+        this.endDateString = this.endDate.toDateString();
+        this.startTimeString = this.startTime.toTimeString();
+        this.endTimeString = this.endTime.toTimeString();
 
-      // update event to the user's created events
-      usercreds.createdEventsObject[self.eventID] = event;
-      usercreds.createdEventsObject.$save()
-        // and once added
-        .then(function(ref) {
-          var id = ref.key();
-          console.log(id);
-          console.log(usercreds.createdEvents);
-          // add it with the same id to the main events object
-          $scope.events[self.eventID] = event;
-          // persist the main events
-          $scope.events.$save()
-            .then(function() {
-              // success -- add to main events object
+        // construt event for storage
+        self.event = {
+          creator: self.creator,
+          name: self.name,
+          host: self.host,
+          location: self.location,
+          startDate: self.startDateString,
+          endDate: self.endDateString,
+          startTime: self.startTimeString,
+          endTime: self.endTimeString,
+          type: self.type,
+          guests: self.guestList,
+          message: self.message
+        };
 
-              // navigate back to the dashboard
-              $scope.changeState('event', {
-                'eventID': self.eventID
-              });
-            }, function() {
-              // error handling -- failure to add to main events object
+        // add it with the same id to the main events object
+        $scope.eventsObject[self.eventID] = self.event;
+        // persist the main events
+        $scope.eventsObject.$save()
+          .then(function() {
+            var sameGuests = self.guestList.every(function(el, i) {
+              return el === self.details.guests[i];
             });
-        }, function(err) {
-          // error handling -- failure to add to user-created events
-          console.log(err);
+            // success -- add to main events object
+            var noChange = sameGuests &&
+              self.guestList.length === self.details.guests.length;
+
+            if (!noChange) {
+              self.editInvites();
+            } else {
+              self.updateInvites();
+            }
+            // navigate back to the dashboard
+            $scope.changeState('event', {
+              'eventID': self.eventID
+            });
+          }, function() {
+            // error handling -- failure to add to main events object
+          });
+
+        console.log('Editing event...');
+
+      }
+
+    };
+
+    this.editInvites = function() {
+      // first prune any removed invites
+      // THEN invoke the update/add function
+      this.removeInvites();
+    };
+
+    this.removeInvites = function() {
+      var guestRef, inviteRef, invites, invite;
+      if (this.removedGuests.length) {
+        this.removedGuests.forEach(function(guest) {
+          guestRef = $scope.usersRef.child(guest);
+
+          // if the guest is a user with invites
+          if (guestRef && guestRef.child('invited')) {
+            // set up a reference to the event node
+            inviteRef = guestRef.child('invited');
+
+            if (inviteRef) {
+              // set up a node object to $remove
+              invites = $firebaseArray(guestRef.child('invited'));
+              // return promise for object
+              invites.$loaded().then(function() {
+                angular.forEach(invites, function(e, k) {
+                  if (e.event === self.eventID) {
+                    invite = invites[k];
+                  }
+                });
+                // remove the event invite for the user
+                invites.$remove(invite).then(function() {
+                  // success: removed an invite
+                  console.log('Removed the invite to ' + guest);
+
+                  // next add/update invites for those in the updated list
+                  self.updateInvites();
+
+                }, function() {
+                  // fail: could not remove the invite
+                  console.log('Nooo, ' + guest + ' still thinks they\'re invited....How awkward. Hope they don\'t show up.');
+                });
+              });
+            }
+          }
         });
+      } else { this.updateInvites(); }
+    };
 
-      console.log('Editing event...');
+    this.updateInvites = function() {
+      var isGuest, guestRef, invitesRef, invites, hasInvite;
+      this.guestList.forEach(function(guest) {
+        isGuest = $scope.users[guest.text];
+        if (isGuest) {
+          guestRef = $scope.usersRef.child(guest.text);
+          invitesRef = guestRef.child('invited');
 
+          // set up a node object to $remove
+          invites = $firebaseArray(guestRef.child('invited'));
+          // return promise for object
+          invites.$loaded().then(function() {
+            hasInvite = false;
+            angular.forEach(invites, function(invite) {
+              if (invite.event === self.eventID) {
+                hasInvite = true;
+              }
+            });
+
+            if (!hasInvite) {
+              invites.$add({ event: self.eventID })
+                .then(function() {
+                  console.log('Success! ' + guest.text + ' was updated/invited!');
+                }, function() {
+                  console.log('Nooo, ' + guest.text + 'got left out!');
+              });
+            }
+          });
+        }
+      });
+    };
+
+    this.removeTag = function(tag) {
+      this.removedGuests.push(tag.text);
+      console.log(this.removedGuests);
+    };
+
+    this.addTag = function(tag) {
+      console.log('Adding ' + tag.text);
+    };
+
+    this.blockEditing = function() {
+      usercreds.user.$loaded(function() {
+        self.hasHostAccess = (self.details.host === usercreds.username ||
+          self.details.host === usercreds.user.$id) || (self.details.creator === usercreds.username || self.details.creator === usercreds.user.$id);
+        if (!self.hasHostAccess) {
+          $rootScope.backing = true;
+          $scope.changeState('event', { eventID: $stateParams.eventID });
+        } else { console.log('You\'re fine'); }
+      });
     };
 
   }]);

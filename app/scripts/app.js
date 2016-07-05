@@ -22,7 +22,7 @@ angular
     'ngMaterial',
     'ui.timepicker'
   ])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdDateLocaleProvider) {
 
     $urlRouterProvider.otherwise('/welcome');
 
@@ -97,6 +97,13 @@ angular
       ;
 
     //$locationProvider.html5Mode({enabled: true, requireBase: false});
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+      if (date) {
+        return date.toDateString();
+      }
+    };
+
   })
 
   // filter for state change
@@ -121,6 +128,31 @@ angular
         $log.log($rootScope.loggedIn);
         e.preventDefault();
         $state.go('dashboard');
+      }
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function(e, to, toParams, from, fromParams) {
+
+      if ($state.current.name === 'dashboard') {
+        $rootScope.previousStates = [];
+      } else {
+        $rootScope.previousStates = $rootScope.previousStates || [];
+        var len = $rootScope.previousStates.length;
+
+        if (!$rootScope.backing && from.name)  {
+          var previousStateInfo = {
+            name : from.name,
+            params: fromParams
+          };
+          $rootScope.previousStates.push(previousStateInfo);
+        }
+
+        if (len &&
+          $state.current.name === $rootScope.previousStates[len - 1].name) {
+          $rootScope.previousStates.pop();
+        }
+
+        $rootScope.backing = false;
       }
     });
 

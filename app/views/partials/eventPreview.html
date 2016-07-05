@@ -1,12 +1,12 @@
 <section class="event-preview">
-  <h5 class="event-preview__title">{{ eventData.name }}</h5>
-  <h6 class="event-preview__date">{{ eventData.date }}</h6>
-  <h6 class="event-preview__type">{{ eventData.type }}</h6>
-  <p class="event-preview__message">{{ eventData.message }}</p>
+  <h5 class="event-preview__title">{{ eventPreview.eventData.name }}</h5>
+  <h6 class="event-preview__date">{{ eventPreview.eventData.startDate }}</h6>
+  <h6 class="event-preview__type">{{ eventPreview.eventData.type }}</h6>
+  <p class="event-preview__message">{{ eventPreview.eventData.message }}</p>
   <md-grid-tile-footer layout="row" layout-align="end center">
-    <a ui-sref="event({ eventID: eventData.$id })">
+    <a ui-sref="event({ eventID: eventPreview.eventKey })">
       <md-button class="md-icon-button eye__button" aria-label="Preview">
-          <md-icon class="material-icons blink__anim step"
+          <md-icon class="material-icons eye__icon blink__anim step"
             ng-class="md-18">
               visibility
           </md-icon>
@@ -15,7 +15,7 @@
           </md-tooltip>
       </md-button>
     </a>
-    <md-button class="md-icon-button delete__button" aria-label="Remove">
+    <md-button ng-if="eventPreview.hasHostAccess" class="md-icon-button delete__button" aria-label="Remove">
       <md-icon class="material-icons shake__anim step"
           ng-class="md-18"
           ng-click="eventPreview.confirmDelete($event)">

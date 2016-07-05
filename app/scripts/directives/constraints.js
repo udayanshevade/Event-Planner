@@ -107,7 +107,7 @@ eventPlannerApp.directive('validRef', function() {
  */
 eventPlannerApp.directive('hasNum', function() {
 
-    // cannot be . $ # [ ] / or 1-30 or 127
+    // must have a numerical character
 
     function hasNum(text) {
       return /\d/.test(text);
@@ -141,7 +141,7 @@ eventPlannerApp.directive('hasNum', function() {
  */
 eventPlannerApp.directive('hasUpperCase', function() {
 
-    // cannot be . $ # [ ] / or 1-30 or 127
+    // must have an uppercase character
 
     function hasUpperCase(text) {
       return (text.toLowerCase() !== text);

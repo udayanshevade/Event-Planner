@@ -58,9 +58,11 @@ angular.module('eventPlannerApp')
      * Add the new user to database
      */
     this.addNewUser = function(username, email, password) {
-      $scope.users[username].account = {
+      $scope.users[username] = {
+        account: {
           email: email,
           password: password
+        }
       };
       $scope.users.$save().then(function() {
 

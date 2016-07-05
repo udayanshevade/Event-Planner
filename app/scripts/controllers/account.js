@@ -13,49 +13,60 @@ angular.module('eventPlannerApp')
     var self = this;
 
     this.loading = true;
-    self.birthdayString = '';
 
-    // initialize the user login credentials
+    /*
+     * Initialize the user login credentials
+     */
     usercreds.user.$loaded(function() {
+      self.reset();
+    });
+
+    this.reset = function() {
       self.username = usercreds.username;
       self.name = usercreds.name || '';
       self.email = usercreds.email;
       self.password = usercreds.password;
-      self.birthday = usercreds.birthday || null;
+      self.birthday = usercreds.birthday;
       self.employer = usercreds.employer || '';
       self.position = usercreds.position || '';
+      self.blurb = usercreds.blurb || '';
       self.loading = false;
-    });
+    };
 
     /**
      * Save account details
      */
     this.editAccount = function() {
 
-      if (self.birthday) {
-        self.birthdayString = self.birthday.toDateString();
-      }
+      if ($scope.accountForm.$valid) {
 
-      var accountDetails = {
-        name: self.name,
-        email: self.email,
-        password: self.password,
-        birthday: self.birthdayString,
-        employer: self.employer,
-        position: self.position
-      };
+        if (self.birthday) {
+          self.birthdayString = self.birthday.toDateString();
+        }
 
-      $scope.users[self.username].account = accountDetails;
+        var accountDetails = {
+          name: self.name,
+          email: self.email,
+          password: self.password,
+          birthday: self.birthdayString,
+          employer: self.employer,
+          position: self.position,
+          blurb: self.blurb
+        };
 
-      $scope.users.$save()
-        .then(function() {
-          // success -- updated user info in database
-          usercreds.updateCredentials();
+        $scope.users[self.username].account = accountDetails;
 
-          console.log(usercreds.user);
-        }, function() {
-          // error handling -- failure to update user info
+        $scope.users.$save()
+          .then(function() {
+            // success -- updated user info in database
+            usercreds.updateCredentials();
+
+            $scope.changeState('dashboard');
+          }, function() {
+            // error handling -- failure to update user info
         });
+
+      }
 
     };
 

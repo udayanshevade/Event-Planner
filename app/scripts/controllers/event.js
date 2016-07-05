@@ -19,21 +19,23 @@ angular.module('eventPlannerApp')
     this.details = null;
 
     $scope.events.$loaded(function() {
-      for (var key in $scope.events) {
-        if (key === self.eventID) {
-          self.details = $scope.events[key];
+      angular.forEach($scope.events, function(event) {
+        console.log(event.$id === self.eventID);
+        if (event.$id === self.eventID) {
+          self.details = event;
         }
-      }
+      });
 
       self.timeZone = self.details.startTime.substring(17);
       self.startTime = self.details.startTime.substring(0, 5);
       self.endTime = self.details.endTime.substring(0, 5);
 
       var host = self.details.host;
+      var creator = self.details.creator;
 
       usercreds.user.$loaded(function() {
         self.hasHostAccess = (host === usercreds.username ||
-          host === usercreds.user.$id);
+          host === usercreds.user.$id) || (creator === usercreds.username || creator === usercreds.user.$id);
       });
 
       self.loading = false;

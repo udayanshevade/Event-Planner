@@ -5,6 +5,8 @@
     <title>Event Planner</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -16,8 +18,6 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
   </head>
   <body ng-app="eventPlannerApp">
     <!--[if lte IE 8]>
@@ -53,7 +53,6 @@
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/jquery-timepicker-jt/jquery.timepicker.js"></script>
-    <script src="bower_components/angular-jquery-timepicker/src/timepickerdirective.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -66,8 +65,12 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/services/usercredentials.js"></script>
+        <script src="scripts/services/validateTimes.js"></script>
+        <script src="scripts/directives/autofocus.js"></script>
         <script src="scripts/directives/constraints.js"></script>
         <script src="scripts/directives/eventPreview.js"></script>
+        <script src="scripts/directives/userPreview.js"></script>
+        <script src="scripts/directives/timepickerdirective.js"></script>
         <script src="scripts/controllers/head.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/register.js"></script>
@@ -79,7 +82,9 @@
         <script src="scripts/controllers/eventPreview.js"></script>
         <script src="scripts/controllers/event.js"></script>
         <script src="scripts/controllers/edit.js"></script>
+        <script src="scripts/controllers/users.js"></script>
         <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/userPreview.js"></script>
         <!-- endbuild -->
 
         <!-- additional -->
@@ -87,7 +92,7 @@
         <script>
           WebFont.load({
             google: {
-              families: ['Mada']
+              families: ['Mada:300,400,500']
             }
           });
         </script>

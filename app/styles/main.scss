@@ -37,7 +37,7 @@ main {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #727272;
+  background-color: rgba(150,150,150,0.4);
 }
 
 .material-icons {
@@ -150,6 +150,8 @@ md-toolbar:not(.md-menu-toolbar) {
   padding: 1rem 2rem;
   width: calc(100% - 2rem);
   max-width: 350px;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 1px 4px 0 rgba(100, 100, 100, 0.2);
@@ -172,7 +174,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .form__text {
-  display: block;
+  display: inline-block;
   margin: 1.5rem 0;
   color: #aaa;
   font-size: 2rem;

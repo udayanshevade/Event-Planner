@@ -38,7 +38,7 @@
       <h5 class="user-position">{{ user.position }}</h5>
       <p class="user-blurb">{{ user.blurb }}</p>
 
-      <md-switch class="md-primary contact-toggle" ng-model="user.isContact" md-no-ink aria-label="Add Contact" ng-change="user.toggleContact(user.isContact)">
+      <md-switch class="contact-toggle" ng-model="user.isContact" md-no-ink aria-label="Add Contact" ng-change="user.toggleContact(user.isContact)">
         <p class="contact-toggle-text">Add to contacts</p>
       </md-switch>
     </div>

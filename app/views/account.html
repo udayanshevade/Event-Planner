@@ -31,7 +31,7 @@
   </div>
 
   <!-- Account details -->
-  <section class="form-container form-container--md">
+  <section class="form-container form-container--md account-container">
     <md-content>
       <div layout-gt-xs="column" layout-align="center center">
         <h2 class="form-title">account</h2>
@@ -68,8 +68,8 @@
             </label>
             <md-content>
               <md-datepicker type="date" name="accountDate" ng-model="account.birthday" md-placeholder="Enter date" autocomplete="bday"></md-datepicker>
-              <div class="hint">Type in your birthday: MM/dd/YY</div>
-              <div class="hint">E.g. 01/23/45</div>
+              <div class="hint">Type in your birthday: MM/DD/YYYY</div>
+              <div class="hint">E.g. 01/23/1945</div>
               <aside ng-messages="accountForm.accountDate.$error" md-auto-hide="false">
                 <div class="form__feedback form__feedback--error" ng-message="valid">must be a valid date</div>
               </aside>

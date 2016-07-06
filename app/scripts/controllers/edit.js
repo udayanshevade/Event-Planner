@@ -64,6 +64,13 @@ angular.module('eventPlannerApp')
       this.message = this.details.message || '';
 
       this.guestList = this.details.guests || [];
+
+      this.cachedGuestList = [];
+
+      this.guestList.forEach(function(guest) {
+        self.cachedGuestList.push(guest);
+      });
+
       this.removedGuests = [];
 
       console.log('Resetting fields');
@@ -118,17 +125,23 @@ angular.module('eventPlannerApp')
         // persist the main events
         $scope.eventsObject.$save()
           .then(function() {
-            var sameGuests = self.guestList.every(function(el, i) {
-              return el === self.details.guests[i];
+            var sameGuests = self.cachedGuestList.every(function(el, i) {
+              if (self.guestList[i]) {
+                return el.text === self.guestList[i].text;
+              } else { return false; }
             });
             // success -- add to main events object
             var noChange = sameGuests &&
-              self.guestList.length === self.details.guests.length;
+              self.cachedGuestList.length === self.guestList.length;
+
+            console.log(self.cachedGuestList, self.guestList);
 
             if (!noChange) {
               self.editInvites();
+              console.log('There was a change in the guest list.');
             } else {
               self.updateInvites();
+              console.log('There was no change in the guest list.');
             }
             // navigate back to the dashboard
             $scope.changeState('event', {
@@ -151,19 +164,19 @@ angular.module('eventPlannerApp')
     };
 
     this.removeInvites = function() {
-      var guestRef, inviteRef, invites, invite;
+      var guestRef, invitesRef, invites, invite;
       if (this.removedGuests.length) {
         this.removedGuests.forEach(function(guest) {
           guestRef = $scope.usersRef.child(guest);
 
           // if the guest is a user with invites
-          if (guestRef && guestRef.child('invited')) {
+          if (guestRef) {
             // set up a reference to the event node
-            inviteRef = guestRef.child('invited');
+            invitesRef = guestRef.child('invited');
 
-            if (inviteRef) {
+            if (invitesRef) {
               // set up a node object to $remove
-              invites = $firebaseArray(guestRef.child('invited'));
+              invites = $firebaseArray(invitesRef);
               // return promise for object
               invites.$loaded().then(function() {
                 angular.forEach(invites, function(e, k) {

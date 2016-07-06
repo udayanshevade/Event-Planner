@@ -68,7 +68,8 @@
             </label>
             <md-content>
               <md-datepicker type="date" name="accountDate" ng-model="account.birthday" md-placeholder="Enter date" autocomplete="bday"></md-datepicker>
-              <div class="hint">What's your birthday?</div>
+              <div class="hint">Type in your birthday: MM/dd/YY</div>
+              <div class="hint">E.g. 01/23/45</div>
               <aside ng-messages="accountForm.accountDate.$error" md-auto-hide="false">
                 <div class="form__feedback form__feedback--error" ng-message="valid">must be a valid date</div>
               </aside>

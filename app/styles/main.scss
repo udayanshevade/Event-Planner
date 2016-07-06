@@ -129,10 +129,29 @@ main {
 md-toolbar:not(.md-menu-toolbar) {
   width: auto;
   background-color: #fff;
-  color: #727272;
+  color: #212121;
 
-  & md-icon {
+  md-icon {
     color: #727272;
+
+    &.create__icon {
+      color: #e74c3c;
+    }
+
+  }
+}
+
+.md-icon-button {
+  &:hover {
+    md-icon {
+      color: #e74c3c;
+    }
+  }
+}
+
+md-grid-tile-footer {
+  md-icon {
+    color: #e74c3c;
   }
 }
 
@@ -155,6 +174,11 @@ md-toolbar:not(.md-menu-toolbar) {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 1px 4px 0 rgba(100, 100, 100, 0.2);
+
+  &.account-container,
+  &.event-container {
+    max-height: none;
+  }
 }
 
 .form-container--md {
@@ -323,7 +347,7 @@ md-input-container[disabled] {
 md-toolbar {
   &.dash__toolbar {
     padding: 1rem 0;
-    box-shadow: 1px 2px 3px rgba(200,200,200,0.2);
+    box-shadow: 1px 2px 3px rgba(160,160,160,0.3);
   }
 
   &.create__toolbar {
@@ -331,10 +355,16 @@ md-toolbar {
   }
 }
 
+.md-active {
+  span {
+    color: #e74c3c;
+  }
+}
+
 .md-toolbar-tools {
 
   .app-title {
-    font: 1.8rem "Open Sans", sans-serif;
+    font-size: 1.8rem;
     color: #212121;
   }
 
@@ -376,12 +406,12 @@ md-toolbar {
 
   .create-link__text {
     @include position(relative);
-    color: #727272;
+    color: #e74c3c;
     display: inline-block;
     margin: 0;
     padding: 0.125rem 0.25rem;
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.85rem;
+    font-weight: 400;
     font-variant: small-caps;
   }
 
@@ -488,6 +518,19 @@ tags-input {
 
 /* Dashboard styles */
 
+md-tabs {
+  .md-tab {
+    .md-ripple-container {
+      color: #e74c3c;
+    }
+  }
+
+  md-ink-bar {
+    color: #e74c3c;
+    background-color: #e74c3c;
+  }
+}
+
 md-tab-content {
   transition: none;
 }
@@ -497,16 +540,10 @@ md-grid-list {
 
   md-grid-tile {
     background-color: #fff;
-    box-shadow: 0 1px 4px 0 rgba(150,150,150,0.2);
-    @include transition(box-shadow 0.16s ease-in);
-
-    &:hover {
-      box-shadow: 0 1px 4px 0 rgba(75,75,75,0.2);
-    }
 
     md-grid-tile-footer {
-      background-color: rgba(225,225,225, 0.2);
-      @include transition(opacity 0.15s ease-out);
+      background-color: #fff;
+      @include transition(background-color 0.15s ease-out);
     }
 
   }
@@ -672,10 +709,9 @@ md-grid-list {
 }
 
 .event-host {
-  color: #717171;
+  color: #e74c3c;
   font-size: 1.45rem;
-  font-weight: lighter;
-  text-decoration: underline;
+  font-weight: 400;
 
   &:hover {
     color: #212121;
@@ -732,17 +768,21 @@ md-grid-list {
 .guest-link {
   padding: 1.5rem 0;
   text-decoration: none;
-  color: #717171;
+
+  &.md-list-item-text {
+    .guest-name {
+      color: #e74c3c;
+    }
+  }
 
   &:hover, &:focus, &:visited, &:active {
     text-decoration: none;
-    color: #212121;
+      &.md-list-item-text {
+      .guest-name {
+        color: #e74c3c;
+      }
+    }
   }
-}
-
-.guest-name {
-  font-size: 2rem;
-  text-decoration: underline;
 }
 
 /* Users section */
@@ -833,7 +873,7 @@ md-list-item {
   md-toolbar {
     &.dash__toolbar {
       padding: 0;
-      box-shadow: 1px 2px 3px rgba(200,200,200,0.2);
+      box-shadow: 1px 2px 3px rgba(160,160,160,0.3);
     }
   }
 
@@ -848,14 +888,10 @@ md-list-item {
   md-grid-list {
     md-grid-tile {
 
-      md-grid-tile-footer {
-        @include transition(background-color 0.15s ease-out);
-      }
-
       &:hover {
 
         & md-grid-tile-footer {
-          background-color: rgba(190, 190, 190, 0.2);
+          background-color: rgba(225,225,225,0.2);
         }
 
         .blink__anim {

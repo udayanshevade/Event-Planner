@@ -41,9 +41,9 @@ main {
 }
 
 .material-icons {
-  font-size: 2.2rem;
-  width: 2.2rem;
-  height: 2.2rem;
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .app-gate-background {
@@ -77,34 +77,8 @@ main {
   position: relative;
 }
 
-.navbar-nav {
-
-  .logout {
-    @include transition(opacity 0.3s ease-in-out);
-    position: absolute;
-    left: 0;
-  }
-
-  .md-icon-button {
-    &:hover {
-      .logout--walk {
-        opacity: 0;
-      }
-      .logout--run {
-        opacity: 1;
-      }
-    }
-  }
-
-}
-
 .logout--walk {
-  opacity: 1;
-}
-
-.logout--run {
-  opacity: 0;
-  padding-left: 1rem;
+  display: none;
 }
 
 .app-heading {
@@ -132,12 +106,7 @@ md-toolbar:not(.md-menu-toolbar) {
   color: #212121;
 
   md-icon {
-    color: #727272;
-
-    &.create__icon {
-      color: #e74c3c;
-    }
-
+    color: #e74c3c;
   }
 }
 
@@ -176,7 +145,8 @@ md-grid-tile-footer {
   box-shadow: 0 1px 4px 0 rgba(100, 100, 100, 0.2);
 
   &.account-container,
-  &.event-container {
+  &.event-container,
+  &.users-list-section {
     max-height: none;
   }
 }
@@ -391,6 +361,11 @@ md-toolbar {
 
 .create-link__box {
   display: inline-block;
+  &:hover {
+    .create__icon {
+      color: #e74c3c;
+    }
+  }
 }
 
 .create__icon {
@@ -540,10 +515,13 @@ md-grid-list {
 
   md-grid-tile {
     background-color: #fff;
+    border-left: 1px solid rgba(200,200,200,0.5);
+    border-right: 1px solid rgba(200,200,200,0.5);
+    @include transition(border-color 0.2s ease-out);
 
     md-grid-tile-footer {
-      background-color: #fff;
-      @include transition(background-color 0.15s ease-out);
+      background-color: rgba(225,225,225,0.2);
+      @include transition(background-color 0.2s ease-out);
     }
 
   }
@@ -560,7 +538,7 @@ md-grid-list {
 .user-preview {
   width: 100%;
   height: 100%;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
 }
 
 .preview__more-button {
@@ -580,10 +558,6 @@ md-grid-list {
       background-color: #fff;
     }
   }
-}
-
-.eye__icon {
-  font-size: 2.2rem;
 }
 
 .event-preview__title {
@@ -801,10 +775,10 @@ md-grid-list {
 md-list-item {
   background-color: rgba(215,215,215,0.2);
   &:nth-of-type(odd) {
-    background-color: rgba(245,245,245,0.2);
+    background-color: rgba(235,235,235,0.2);
   }
   &:hover {
-    background-color: rgba(235,235,235,0.4);
+    background-color: rgba(200,200,200,0.2);
   }
 }
 
@@ -812,7 +786,7 @@ md-list-item {
 
 .user-username {
   font-size: 1.6rem;
-  color: #b6b6b6;
+  color: #e74c3c;
 }
 
 .user-name {
@@ -854,9 +828,26 @@ md-list-item {
   font-size: 1.35rem;
 }
 
+md-switch {
+  &.md-checked {
+    .md-bar {
+      background-color: #f29f97;
+    }
+    .md-thumb {
+      background-color: #e74c3c;
+    }
+  }
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+
+  .material-icons {
+    font-size: 2.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
 
   .form-container {
     padding: 2rem 3rem;
@@ -875,6 +866,43 @@ md-list-item {
       padding: 0;
       box-shadow: 1px 2px 3px rgba(160,160,160,0.3);
     }
+
+    &:not(.md-menu-toolbar) {
+      md-icon {
+        color: #727272;
+      }
+    }
+  }
+
+  .navbar-nav {
+
+    .logout {
+      @include transition(opacity 0.3s ease-in-out);
+      position: absolute;
+      left: 0;
+    }
+
+    .md-icon-button {
+      &:hover {
+        .logout--walk {
+          opacity: 0;
+        }
+        .logout--run {
+          opacity: 1;
+        }
+      }
+    }
+
+  }
+
+  .logout--walk {
+    display: block;
+    opacity: 1;
+  }
+
+  .logout--run {
+    opacity: 0;
+    padding-left: 1rem;
   }
 
   .main-content {
@@ -888,9 +916,19 @@ md-list-item {
   md-grid-list {
     md-grid-tile {
 
+      border-left: 1px solid rgba(200,200,200,0.3);
+      border-right: 1px solid rgba(200,200,200,0.3);
+
+      md-grid-tile-footer {
+        background-color: #fff;
+      }
+
       &:hover {
 
-        & md-grid-tile-footer {
+        border-left: 1px solid rgba(225,225,225,0.2);
+        border-right: 1px solid rgba(225,225,225,0.2);
+
+        md-grid-tile-footer {
           background-color: rgba(225,225,225,0.2);
         }
 
@@ -905,6 +943,13 @@ md-list-item {
 
       }
     }
+  }
+
+  .event-preview,
+  .user-preview {
+    width: 100%;
+    height: 100%;
+    padding: 1rem 2rem;
   }
 
 }

@@ -20,7 +20,7 @@
           <div layout="row">
             <md-input-container class="md-block" flex-gt-xs>
               <label class="form__text form__label md-required">username</label>
-              <input class="form__username" name="username" required autocomplete="off" autofocus ng-model="reg.username" minlength="6" maxlength="18" new-user="reg.checkUser(un)" valid-ref>
+              <input type="text" class="form__username" name="username" required autocomplete="off" autofocus ng-autofocus ng-model="reg.username" minlength="6" maxlength="18" new-user="reg.checkUser(un)" valid-ref>
               <aside ng-messages="registerForm.username.$error" md-auto-hide="false">
                 <div class="form__feedback form__feedback--error" ng-message="validRef">Must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
                 <div class="form__feedback form__feedback--error" ng-message="newUser">This username is already taken</div>

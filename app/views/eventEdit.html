@@ -36,9 +36,9 @@
           <div layout="row" class="form__row name__row">
             <md-input-container flex>
               <label class="form__text form__label">change event name</label>
-              <input type="text" name="eventName" ng-model="edit.name" required autocomplete="off" minlength="6" maxlength="35" autofocus ng-autofocus class="form__event-name edit-name-input">
+              <input type="text" name="eventName" ng-model="edit.name" required autocomplete="off" minlength="5" maxlength="35" autofocus ng-autofocus class="form__event-name edit-name-input">
               <aside ng-messages="editForm.eventName.$error" md-auto-hide="false">
-                <div class="form__feedback--error" ng-message="minlength">Must be at least 6 characters</div>
+                <div class="form__feedback--error" ng-message="minlength">Must be at least 5 characters</div>
                 <div class="form__feedback--error" ng-message="maxlength">Must be shorter than 35 characters</div>
                 <div class="form__feedback--error" ng-message="required">An event name is needed.</div>
               </aside>

@@ -1,4 +1,4 @@
-<section class="event-section" layout="column" layout-align="center center" ng-controller="UsersCtrl as allUsers" flex>
+<section class="users-section" layout="column" layout-align="center center" ng-controller="UsersCtrl as allUsers" flex>
 
   <div class="loading-signal" ng-if="allUsers.loading" layout="row" layout-sm="column" layout-align="space-around">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -51,7 +51,7 @@
             <md-list flex ng-if="allUsers.users.length">
               <user-preview ng-repeat="user in allUsers.users" user-data="user.account" username="user.$id" ng-if="allUsers.self !== user.$id"></user-preview>
             </md-list>
-            <aside ng-if="!allUsers.contacts.length">
+            <aside ng-if="!allUsers.users.length">
               <p class="empty-list">Invite someone you know to use the app!</p>
             </aside>
           </md-content>

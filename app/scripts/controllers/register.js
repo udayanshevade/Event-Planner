@@ -28,6 +28,7 @@ angular.module('eventPlannerApp')
     this.email = '';
     this.password = '';
     this.passwordConfirm = '';
+    this.birthday = null;
 
     /**
      * Constraints validation

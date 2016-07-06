@@ -204,28 +204,35 @@ angular.module('eventPlannerApp')
     };
 
     this.updateInvites = function() {
-      var isGuest, guestRef, invitesRef, invites, hasInvite;
+      var isGuest, guestRef;
       this.guestList.forEach(function(guest) {
+        var invites, invitesRef, invite, hasInvite;
+
         isGuest = $scope.users[guest.text];
         if (isGuest) {
           guestRef = $scope.usersRef.child(guest.text);
           invitesRef = guestRef.child('invited');
 
+          console.log(invitesRef);
+
           // set up a node object to $remove
-          invites = $firebaseArray(guestRef.child('invited'));
+          invites = $firebaseArray(invitesRef);
           // return promise for object
-          invites.$loaded().then(function() {
+          invites.$loaded(function() {
+            console.log(invites);
             hasInvite = false;
             angular.forEach(invites, function(invite) {
+              console.log(invite.event, self.eventID);
               if (invite.event === self.eventID) {
                 hasInvite = true;
               }
             });
 
+            console.log(hasInvite);
             if (!hasInvite) {
               invites.$add({ event: self.eventID })
                 .then(function() {
-                  console.log('Success! ' + guest.text + ' was updated/invited!');
+                  console.log('Success! ' + guest.text + ' was invited!');
                 }, function() {
                   console.log('Nooo, ' + guest.text + 'got left out!');
               });

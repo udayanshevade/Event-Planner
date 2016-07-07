@@ -78,8 +78,7 @@ angular.module('eventPlannerApp')
     /*
      * TODO: Load guests list in autocomplete feature
      */
-    this.loadContacts = function(query) {
-      // for jshint's sake
+    this.loadContacts = function() {
 
       var contacts = usercreds.contactsArray.map(function(elem) {
         return elem.$id;

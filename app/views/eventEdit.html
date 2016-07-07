@@ -124,7 +124,7 @@
           <div class="form__row guests__row">
             <label class="form__text form__label">update guest list</label>
             <tags-input type="text" name="eventGuests" ng-model="edit.guestList" add-on-paste="true" placeholder="Add a guest" on-tag-removed="edit.removeTag($tag)" replace-spaces-with-dashes="false" allow-leftover-text="false">
-              <auto-complete select-first-match="false" min-length="3" source="edit.loadContacts($query)"></auto-complete>
+              <auto-complete select-first-match="false" min-length="3" source="edit.loadContacts()"></auto-complete>
             </tags-input>
             <aside ng-messages="editForm.eventGuests.$error" md-auto-hide="false">
               <div class="form__feedback--error" ng-message="allowLeftoverText">Please remove any extra text.</div>

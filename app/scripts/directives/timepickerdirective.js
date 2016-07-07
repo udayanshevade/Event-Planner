@@ -1,3 +1,5 @@
+'use strict';
+
 /*global angular */
 /*
  Directive for jQuery UI timepicker (http://jonthornton.github.io/jquery-timepicker/)
@@ -35,7 +37,6 @@ m.directive('uiTimepicker', ['uiTimepickerConfig', '$parse', '$window', 'validat
         },
         priority: 1,
         link: function(scope, element, attrs, ngModel) {
-            'use strict';
             var config = angular.copy(uiTimepickerConfig);
             var asMoment = config.asMoment || false;
             delete config.asMoment;
@@ -140,7 +141,7 @@ m.directive('uiTimepicker', ['uiTimepickerConfig', '$parse', '$window', 'validat
             };
 
             if (element.is('input')) {
-                ngModel.$parsers.unshift(function(viewValue) {
+                ngModel.$parsers.unshift(function() {
                     var date = element.timepicker('getTime', asDate());
                     return date ? asMomentOrDate(date) : date;
                 });

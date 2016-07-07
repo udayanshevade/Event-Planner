@@ -46,7 +46,7 @@ angular.module('eventPlannerApp')
       usercreds.contacts[user] = true;
       usercreds.contacts.$save().then(function() {
         // successfully added contact
-      }, function (err) {
+      }, function () {
         // TODO: error handling
       });
     };
@@ -56,7 +56,7 @@ angular.module('eventPlannerApp')
         var obj = $firebaseObject(usercreds.contactsRef.child(user));
         obj.$remove().then(function() {
           // successfully removed
-        }, function(err) {
+        }, function() {
           // TODO: error handling
         });
       }

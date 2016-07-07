@@ -15,20 +15,23 @@ angular.module('eventPlannerApp')
     var categories = ['name', 'host', 'location', 'type', 'startTime', 'endTime', 'message', 'guestList', 'startDate', 'endDate'];
 
     // create temporary cache of details in case user exits form before done
+    var watchDetailFn = function(det) {
+      return function() {
+        return self[det];
+      };
+    };
+
+    var assignDetailFn = function(name) {
+      return function(val) {
+        createDetails[name] = val;
+      };
+    };
+
     var watchDetail, assignDetail;
     for (var cat = 0, catLength = categories.length; cat < catLength; cat ++) {
       if (!createDetails[categories[cat]]) {
-        watchDetail = (function(det) {
-          return function() {
-            return self[det];
-          };
-        })(categories[cat]);
-
-        assignDetail = (function(name) {
-          return function(val) {
-            createDetails[name] = val;
-          };
-        })(categories[cat]);
+        watchDetail = watchDetailFn(categories[cat]);
+        assignDetail = assignDetailFn(categories[cat]);
 
         $scope.$watch(watchDetail, assignDetail);
       }
@@ -71,9 +74,7 @@ angular.module('eventPlannerApp')
     /*
      * TODO: Load guests list in autocomplete feature
      */
-    this.loadContacts = function(query) {
-      // for jshint's sake
-
+    this.loadContacts = function() {
       var contacts = usercreds.contactsArray.map(function(elem) {
         return elem.$id;
       });

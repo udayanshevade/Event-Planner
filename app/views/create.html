@@ -111,7 +111,7 @@
           <div class="form__row">
             <label class="form__text form__label">who is coming</label>
             <tags-input type="search" name="eventGuests" ng-model="create.guestList" add-on-paste="true" placeholder="Add a guest" replace-spaces-with-dashes="false" allow-leftover-text="false">
-              <auto-complete select-first-match="false" min-length="3" source="create.loadContacts($query)"></auto-complete>
+              <auto-complete select-first-match="false" min-length="3" source="create.loadContacts()"></auto-complete>
             </tags-input>
             <div class="hint">Guests don't have to be users.</div>
             <div class="hint">To get suggestions, type in contacts' usernames.</div>

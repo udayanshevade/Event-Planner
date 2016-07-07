@@ -14,6 +14,18 @@ angular.module('eventPlannerApp')
 
     var details = ['username', 'email'];
 
+    var watchDetailFn = function(det) {
+      return function() {
+        return self[det];
+      };
+    };
+
+    var assignDetailFn = function(name) {
+      return function(val) {
+        usercreds[name] = val;
+      };
+    };
+
     // create temporary cache of details in case user exits form before done
     var watchDetail, assignDetail;
     for (var d = 0, dLength = details.length; d < dLength; d ++) {
@@ -21,17 +33,8 @@ angular.module('eventPlannerApp')
       if (usercreds[detail]) {
         self[detail] = usercreds[detail];
       }
-      watchDetail = (function(det) {
-        return function() {
-          return self[det];
-        };
-      })(detail);
-
-      assignDetail = (function(name) {
-        return function(val) {
-          usercreds[name] = val;
-        };
-      })(detail);
+      watchDetail = watchDetailFn(detail);
+      assignDetail = assignDetailFn(detail);
 
       $scope.$watch(watchDetail, assignDetail);
     }

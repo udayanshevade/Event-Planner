@@ -73,7 +73,6 @@ angular.module('eventPlannerApp')
 
       this.removedGuests = [];
 
-      console.log('Resetting fields');
     };
 
     /*
@@ -81,13 +80,10 @@ angular.module('eventPlannerApp')
      */
     this.loadContacts = function(query) {
       // for jshint's sake
-      console.log(query);
 
       var contacts = usercreds.contactsArray.map(function(elem) {
         return elem.$id;
       });
-
-      console.log(contacts);
 
       return contacts;
     };
@@ -134,14 +130,12 @@ angular.module('eventPlannerApp')
             var noChange = sameGuests &&
               self.cachedGuestList.length === self.guestList.length;
 
-            console.log(self.cachedGuestList, self.guestList);
-
             if (!noChange) {
+              // changed guest list
               self.editInvites();
-              console.log('There was a change in the guest list.');
             } else {
+              // no change in guest list
               self.updateInvites();
-              console.log('There was no change in the guest list.');
             }
             // navigate back to the dashboard
             $scope.changeState('event', {
@@ -150,8 +144,6 @@ angular.module('eventPlannerApp')
           }, function() {
             // error handling -- failure to add to main events object
           });
-
-        console.log('Editing event...');
 
       }
 
@@ -187,14 +179,13 @@ angular.module('eventPlannerApp')
                 // remove the event invite for the user
                 invites.$remove(invite).then(function() {
                   // success: removed an invite
-                  console.log('Removed the invite to ' + guest);
 
                   // next add/update invites for those in the updated list
                   self.updateInvites();
 
                 }, function() {
                   // fail: could not remove the invite
-                  console.log('Nooo, ' + guest + ' still thinks they\'re invited....How awkward. Hope they don\'t show up.');
+                  // TODO: add fallback contingency
                 });
               });
             }
@@ -204,37 +195,33 @@ angular.module('eventPlannerApp')
     };
 
     this.updateInvites = function() {
-      var isGuest, guestRef;
+      var isGuest, guestRef, isCreator;
       this.guestList.forEach(function(guest) {
-        var invites, invitesRef, invite, hasInvite;
+        var invites, invitesRef, hasInvite;
 
         isGuest = $scope.users[guest.text];
-        if (isGuest) {
+        isCreator = guest.text === self.creator;
+        if (isGuest && !isCreator) {
           guestRef = $scope.usersRef.child(guest.text);
           invitesRef = guestRef.child('invited');
-
-          console.log(invitesRef);
 
           // set up a node object to $remove
           invites = $firebaseArray(invitesRef);
           // return promise for object
           invites.$loaded(function() {
-            console.log(invites);
             hasInvite = false;
             angular.forEach(invites, function(invite) {
-              console.log(invite.event, self.eventID);
               if (invite.event === self.eventID) {
                 hasInvite = true;
               }
             });
 
-            console.log(hasInvite);
             if (!hasInvite) {
               invites.$add({ event: self.eventID })
                 .then(function() {
-                  console.log('Success! ' + guest.text + ' was invited!');
+                  // success
                 }, function() {
-                  console.log('Nooo, ' + guest.text + 'got left out!');
+                  // fail contingency
               });
             }
           });
@@ -244,11 +231,6 @@ angular.module('eventPlannerApp')
 
     this.removeTag = function(tag) {
       this.removedGuests.push(tag.text);
-      console.log(this.removedGuests);
-    };
-
-    this.addTag = function(tag) {
-      console.log('Adding ' + tag.text);
     };
 
     this.blockEditing = function() {
@@ -258,7 +240,7 @@ angular.module('eventPlannerApp')
         if (!self.hasHostAccess) {
           $rootScope.backing = true;
           $scope.changeState('event', { eventID: $stateParams.eventID });
-        } else { console.log('You\'re fine'); }
+        }
       });
     };
 

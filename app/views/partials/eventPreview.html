@@ -15,6 +15,17 @@
           </md-tooltip>
       </md-button>
     </a>
+    <a ui-sref="event-edit({ eventID: eventPreview.eventKey })">
+      <md-button class="md-icon-button create__button" aria-label="Preview">
+          <md-icon class="material-icons create__icon pencil-down__anim step"
+            ng-class="md-18">
+              edit
+          </md-icon>
+          <md-tooltip md-direction="bottom">
+            edit
+          </md-tooltip>
+      </md-button>
+    </a>
     <md-button ng-if="eventPreview.hasHostAccess" class="md-icon-button delete__button" aria-label="Remove">
       <md-icon class="material-icons shake__anim step"
           ng-class="md-18"

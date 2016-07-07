@@ -39,7 +39,10 @@
       <p class="user-blurb">{{ user.blurb }}</p>
 
       <md-switch class="contact-toggle" ng-model="user.isContact" md-no-ink aria-label="Add Contact" ng-change="user.toggleContact(user.isContact)">
-        <p class="contact-toggle-text">Add to contacts</p>
+        <p class="contact-toggle-text">
+          <span ng-if="!user.isContact">Add to contacts</span>
+          <span ng-if="user.isContact">Remove from contacts</span>
+        </p>
       </md-switch>
     </div>
 

@@ -63,20 +63,16 @@ m.directive('uiTimepicker', ['uiTimepickerConfig', '$parse', '$window', 'validat
                     scope.relatedDate) {
                     switch (validateTimes.compare(scope.relatedDate, scope.earlierThanDate)) {
                         case 'later':
-                            console.log('Because the date is not earlier, the time is not earlier than.');
                             //ngModel.$setValidity('earlierThan', false);
                             break;
                         case 'same':
                             if (validateTimes.compare(ngModel.$modelValue, scope.earlierThan) === 'earlier') {
-                                console.log('The time is earlier.');
                                 ngModel.$setValidity('earlierThan', true);
                             } else {
-                                console.log('The time is not earlier.');
                                 ngModel.$setValidity('earlierThan', false);
                             }
                             break;
                         case 'earlier':
-                            console.log('The date itself is earlier.');
                             ngModel.$setValidity('earlierThan', true);
                             break;
                     }
@@ -87,20 +83,16 @@ m.directive('uiTimepicker', ['uiTimepickerConfig', '$parse', '$window', 'validat
                     scope.relatedDate) {
                     switch (validateTimes.compare(scope.relatedDate, scope.laterThanDate)) {
                         case 'earlier':
-                            console.log('Because the date is not later, the time is not later than.');
                             //ngModel.$setValidity('laterThan', false);
                             break;
                         case 'same':
                             if (validateTimes.compare(ngModel.$modelValue, scope.laterThan) === 'later') {
-                                console.log('The time is later.');
                                 ngModel.$setValidity('laterThan', true);
                             } else {
-                                console.log('The time is not later.');
                                 ngModel.$setValidity('laterThan', false);
                             }
                             break;
                         case 'later':
-                            console.log('The date itself is later.');
                             ngModel.$setValidity('laterThan', true);
                             break;
                     }

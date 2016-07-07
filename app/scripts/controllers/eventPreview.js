@@ -54,18 +54,16 @@ angular.module('eventPlannerApp')
         // remove event from overall events
         self.event.$remove()
           .then(function() {
-            console.log('The event has been removed.');
             // remove the record from the user's created events
             self.createdEvent.$loaded().then(function() {
               self.createdEvent.$remove()
                 .then(function() {
                   // success - removed from main events
-                  console.log('The created event record has been removed.');
                 }, function() {
-                  // error handling - failure to remove from main events
+                  // TODO: error handling - failure to remove from main events
                 });
             }, function() {
-              // error handling - failure to remove from user-created events
+              // TODO: error handling - failure to remove from user-created events
             });
           });
         });
@@ -106,9 +104,8 @@ angular.module('eventPlannerApp')
             // remove the invitation
             userInvitedEvents.$remove(eventObj).then(function() {
               // removed guest's invited event object
-              console.log('Success! ' + username + ' has been uninvited. Maybe next time they\'ll think twice before making plans with you...');
             }, function() {
-              console.log('Nooo, ' + username  + ' still thinks they are invited...how awkward!');
+              // TODO: error handling - failed to disinvite guest
             });
           }
         });

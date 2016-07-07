@@ -14,9 +14,6 @@ angular.module('eventPlannerApp')
       startTime = startTime.getTime();
       endTime = endTime.getTime();
 
-      console.log(typeof startTime, startTime);
-      console.log(typeof endTime, endTime);
-
       if (startTime < endTime) {
         return 'earlier';
       } else if (startTime === endTime) {

@@ -13,7 +13,7 @@
     </a>
   </div>
 
-  <section class="form-container form-container--md">
+  <section class="form-container form-container--md event-container">
     <md-content>
       <div>
         <form name="createForm" class="form create-form" ng-submit="create.createEvent()">
@@ -38,6 +38,7 @@
                   when is it
                 </label>
                 <md-datepicker type="date" name="startDate" ng-model="create.startDate" required md-min-date="create.currentDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+                <div class="hint">Select a date from the calendar.</div>
                 <aside ng-messages="createForm.startDate.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="valid">Please pick a valid date</div>
                   <div class="form__feedback--error" ng-message="mindate">Please avoid a past date.</div>
@@ -63,6 +64,7 @@
                   until
                 </label>
                 <md-datepicker type="date" name="endDate" ng-model="create.endDate" md-min-date="create.startDate" md-placeholder="Enter date" md-open-on-focus required></md-datepicker>
+                <div class="hint">Or type in a date: MM/DD/YYYY</div>
                 <aside ng-messages="createForm.endDate.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="valid">Please pick a valid date</div>
                   <div class="form__feedback--error" ng-message="mindate">The event must end after it begins.</div>
@@ -125,7 +127,8 @@
               <aside ng-messages="createForm.message.$error" md-auto-hide="false">
                 <div class="form__feedback--error" ng-message="maxlength">Please keep it within 250 characters.</div>
               </aside>
-              <div class="hint">Any special notes? Preambles? Feeling excited? Share it with everyone!</div>
+              <div class="hint">Any special notes? Preambles?</div>
+              <div class="hint">Feeling excited? Share it with everyone!</div>
             </md-input-container>
           </div>
           <!-- Set the EVENT HOST -->

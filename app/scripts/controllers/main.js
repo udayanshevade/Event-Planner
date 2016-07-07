@@ -23,7 +23,6 @@ angular.module('eventPlannerApp')
 
     // if localStorage for event planner app exists
     if (appStorage) {
-      console.log(appStorage);
       // sign in user
       var loggedIn = $rootScope.loggedIn = $scope.$storage.eventPlannerApp.loggedIn;
 
@@ -46,11 +45,8 @@ angular.module('eventPlannerApp')
     $scope.events = $firebaseArray($scope.eventsRef);
     $scope.eventsObject = $firebaseObject($scope.eventsRef);
 
-    console.log($scope.users);
-
     // navigate to a new target state
     $scope.changeState = function(target, options) {
-      console.log($rootScope.previousStates);
       if (target === 'previous' && $rootScope.previousStates) {
         $rootScope.backing = true;
         var previousState = $rootScope.previousStates.pop();

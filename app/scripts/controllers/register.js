@@ -12,23 +12,19 @@ angular.module('eventPlannerApp')
 
     var self = this;
 
-    /*
-    // TODO: Add service to prefill/migrate typed-in text
 
-    this.username = usercreds.user.$id;
-    this.email = usercreds.user.account.email;
-    this.password = usercreds.user.account.password;
+    // create temporary cache of details in case user switches form
+    if (usercreds.username) {
+      self.username = usercreds.username;
+    }
 
     $scope.$watch(function() {
-      return self.username;
-    }, function(val) {
-      usercreds.user.username = val;
-    }); */
+        return self.username;
+      }, function(val) {
+        usercreds.username = val;
+      });
 
-    this.email = '';
-    this.password = '';
     this.passwordConfirm = '';
-    this.birthday = null;
 
     /**
      * Constraints validation

@@ -22,10 +22,11 @@
               <label class="form__text form__label md-required">username</label>
               <input type="text" class="form__username" name="username" required autocomplete="off" autofocus ng-autofocus ng-model="reg.username" minlength="6" maxlength="18" new-user="reg.checkUser(un)" valid-ref>
               <aside ng-messages="registerForm.username.$error" md-auto-hide="false">
-                <div class="form__feedback form__feedback--error" ng-message="validRef">Must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
-                <div class="form__feedback form__feedback--error" ng-message="newUser">This username is already taken</div>
-                <div class="form__feedback form__feedback--error" ng-message="minlength">Must be at least 6 characters</div>
-                <div class="form__feedback form__feedback--success" ng-show="registerForm.username.$valid">Great!</div>
+                <div class="form__feedback--error" ng-message="required" ng-show="registerForm.username.$touched && registerForm.username.$invalid">A valid username is required.</div>
+                <div class="form__feedback--error" ng-message="validRef">Must not contain the characters: <pre><code>. $ # [ ] /</code></pre></div>
+                <div class="form__feedback--error" ng-message="newUser">This username is already taken</div>
+                <div class="form__feedback--error" ng-message="minlength">Must be at least 6 characters</div>
+                <div class="form__feedback--success" ng-show="registerForm.username.$valid">Great!</div>
               </aside>
             </md-input-container>
           </div>
@@ -33,6 +34,10 @@
             <md-input-container class="md-block" flex>
               <label class="form__text form__label md-required">email</label>
               <input type="email" class="form__email" name="email" required autocomplete ng-model="reg.email">
+              <aside ng-messages="registerForm.email.$error" md-auto-hide="false">
+                <div class="form__feedback--error" ng-message="required" ng-show="registerForm.email.$touched && registerForm.email.$invalid">A valid email is required.</div>
+                <div class="form__feedback--error" ng-message="valid">Please enter a valid email.</div>
+              </aside>
             </md-input-container>
           </div>
           <div layout="row">
@@ -40,10 +45,11 @@
               <label class="form__text form__label md-required">create password</label>
               <input type="password" class="form__password" name="password" required ng-model="reg.password" minlength="6" maxlength="18" has-num has-upper-case has-lower-case>
               <aside ng-messages="registerForm.password.$error" ng-messages-multiple md-auto-hide="false">
-                <div class="form__feedback form__feedback--error" ng-message="minlength">must be at least 6 characters</div>
-                <div class="form__feedback form__feedback--error" ng-message="hasNum">must contain a number</div>
-                <div class="form__feedback form__feedback--error" ng-message="hasUpperCase">must use 1 uppercase letter</div>
-                <div class="form__feedback form__feedback--error" ng-message="hasLowerCase">must use 1 lowercase letter</div>
+                <div class="form__feedback--error" ng-message="required" ng-show="registerForm.password.$touched && registerForm.password.$invalid">A valid password is required.</div>
+                <div class="form__feedback--error" ng-message="minlength">Must be at least 6 characters</div>
+                <div class="form__feedback--error" ng-message="hasNum">Must contain a number</div>
+                <div class="form__feedback--error" ng-message="hasUpperCase">Must use 1 uppercase letter</div>
+                <div class="form__feedback--error" ng-message="hasLowerCase">Must use 1 lowercase letter</div>
               </aside>
             </md-input-container>
           </div>
@@ -52,10 +58,16 @@
               <label class="form__text form__label md-required">confirm password</label>
               <input type="password" class="form__password confirm" name="passwords" required ng-model="reg.passwordConfirm" password-match="{{ reg.password }}">
               <aside ng-messages="registerForm.passwords.$error" md-auto-hide="false">
-                <div class="form__feedback form__feedback--error" ng-message="passwordMatch">passwords do not match</div>
+                <div class="form__feedback--error" ng-message="required" ng-show="registerForm.passwords.$touched && registerForm.password.$invalid">Please confirm the password.</div>
+                <div class="form__feedback--error" ng-message="passwordMatch">Passwords do not match.</div>
               </aside>
             </md-input-container>
           </div>
+
+          <div>
+            <p class="form__invalid form__feedback" ng-show="registerForm.$invalid">Please complete the form with valid details.</p>
+          </div>
+
           <div layout="row" layout-align="center center">
             <md-button aria-label="Register"
               type="submit"

@@ -61,7 +61,7 @@
         </div>
         <div class="event-timezone"> {{ event.timeZone }} </div>
         <h4 class="event-location">{{ event.details.location }}</h4>
-        <a class="guest-link" ui-sref="user({ handle: event.details.host })"><h5 class="event-host">{{ event.details.host }}</h5></a>
+        <a ui-sref="user({ handle: event.details.host })"><h5 class="event-host">{{ event.details.host }}</h5></a>
         <p class="event-message">
           {{ event.details.message }}
         </p>
@@ -72,13 +72,24 @@
           <md-content>
             <md-list flex>
               <md-subheader class="md-no-sticky guest-list-subheader">
-                Who's Invited
+                Who's Coming
               </md-subheader>
               <md-list-item class="md-2-line guest-list-item" ng-repeat="guest in event.details.guests">
                 <img ng-if="guest.img" ng-src="{{ guest.img }}" class="md-avatar" alt="Picture of {{guest.text}}">
-                <a ui-sref="user({ handle: guest.text })" class="md-list-item-text guest-link" layout="column">
+                <div class="md-list-item-text guest-link" layout="column">
                   <h4 class="guest-name">{{ guest.text }}</h4>
                   <p class="guest-message">{{ guest.message }}</p>
+                </div>
+                <a ui-sref="user({ handle: userPreview.username })" class="md-secondary">
+                  <md-button class="md-icon-button eye__button" aria-label="Preview">
+                      <md-icon class="material-icons eye__icon blink__anim step"
+                        ng-class="md-18">
+                          visibility
+                      </md-icon>
+                      <md-tooltip md-direction="bottom">
+                        view
+                      </md-tooltip>
+                  </md-button>
                 </a>
               </md-list-item>
             </md-list>

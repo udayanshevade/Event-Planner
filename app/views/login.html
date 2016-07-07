@@ -20,7 +20,7 @@
           <div layout-gt="row">
             <md-input-container class="md-block" flex>
               <label class="form__text form__label">username</label>
-              <input type="text" class="form__username" ng-model="login.username" ng-autofocus autofocus ng-disabled="login.email.length">
+              <input type="text" name="username" class="form__username" ng-model="login.username" ng-autofocus autofocus ng-disabled="login.email.length">
             </md-input-container>
           </div>
           <div layout="row">
@@ -29,7 +29,7 @@
           <div layout="row">
             <md-input-container class="md-block" flex>
               <label class="form__text form__label">email</label>
-              <input type="email" class="form__email" ng-model="login.email" ng-disabled="login.username.length">
+              <input type="email" name="email" class="form__email" ng-model="login.email" ng-disabled="login.username.length">
             </md-input-container>
           </div>
           <div layout="row">
@@ -38,7 +38,7 @@
           <div layout="row">
             <md-input-container class="md-block" flex>
             <label class="form__text form__label">password</label>
-            <input type="password" class="form__password" ng-model="login.password">
+            <input type="password" name="password" class="form__password" ng-model="login.password">
             </md-input-container>
           </div>
           <div layout-gt="row">

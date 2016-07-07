@@ -8,23 +8,45 @@
  * Controller of the eventPlannerApp
  */
 angular.module('eventPlannerApp')
-  .controller('CreateCtrl', ['$scope', 'usercreds', '$firebaseArray', function ($scope, usercreds, $firebaseArray) {
+  .controller('CreateCtrl', ['$scope', 'usercreds', 'createDetails', '$firebaseArray', function ($scope, usercreds, createDetails, $firebaseArray) {
 
     var self = this;
+
+    var categories = ['name', 'host', 'location', 'type', 'startTime', 'endTime', 'message', 'guestList', 'startDate', 'endDate'];
+
+    // create temporary cache of details in case user exits form before done
+    var watchDetail, assignDetail;
+    for (var cat = 0, catLength = categories.length; cat < catLength; cat ++) {
+      if (!createDetails[categories[cat]]) {
+        watchDetail = (function(det) {
+          return function() {
+            return self[det];
+          };
+        })(categories[cat]);
+
+        assignDetail = (function(name) {
+          return function(val) {
+            createDetails[name] = val;
+          };
+        })(categories[cat]);
+
+        $scope.$watch(watchDetail, assignDetail);
+      }
+    }
 
     /*
      * Reset parameters of the event creation module
      */
     this.reset = function() {
       // set event creation parameters to default
-      this.name = '';
+      this.name = createDetails.name || '';
       this.creator = usercreds.user.$id || '';
-      this.host = usercreds.user.$id || usercreds.user.username || '';
-      this.location = '';
-      this.type = '';
+      this.host = createDetails.host || usercreds.user.$id || usercreds.user.username || '';
+      this.location = createDetails.location || '';
+      this.type = createDetails.type || '';
       this.currentTime = new Date();
-      this.startTime = new Date();
-      this.endTime = new Date((new Date()).setHours(self.startTime.getHours()+1));
+      this.startTime = createDetails.startTime || new Date();
+      this.endTime = createDetails.endTime || new Date((new Date()).setHours(self.startTime.getHours()+1));
       this.defaultTypes = [
         'Conference',
         'Wedding',
@@ -32,13 +54,13 @@ angular.module('eventPlannerApp')
         'Birthday',
         'Party'
       ];
-      this.message = '';
+      this.message = createDetails.message || '';
 
-      this.guestList = [];
+      this.guestList = createDetails.guestList || [usercreds.user.$id];
 
-      this.startDate = new Date();
+      this.startDate = createDetails.startDate || new Date();
       this.startDate.setHours(0,0,0,0);
-      this.endDate = new Date();
+      this.endDate = createDetails.endDate || new Date();
       this.endDate.setHours(0,0,0,0);
       this.currentDate = new Date();
       this.currentDate.setHours(0,0,0,0);
@@ -51,13 +73,10 @@ angular.module('eventPlannerApp')
      */
     this.loadContacts = function(query) {
       // for jshint's sake
-      console.log(query);
 
       var contacts = usercreds.contactsArray.map(function(elem) {
         return elem.$id;
       });
-
-      console.log(contacts);
 
       return contacts;
     };
@@ -75,7 +94,7 @@ angular.module('eventPlannerApp')
         this.startTimeString = this.startTime.toTimeString();
         this.endTimeString = this.endTime.toTimeString();
 
-        // construt event for storage
+        // construct event for storage
         this.event = {
           creator: self.creator,
           name: self.name,
@@ -90,17 +109,20 @@ angular.module('eventPlannerApp')
           message: self.message
         };
 
-        // add event to the user's created events
+        // add event to the main events
         $scope.events.$add(self.event)
           // and once added
           .then(function(ref) {
             var id = ref.key();
 
-            // and add it with the same id to the main events object
+            // and store it in the users created events records
             usercreds.createdEvents.$add({event: id});
-            // persist the main events
             // persist event invitation to guest refs
             self.inviteGuests(id);
+
+            for (var cat = 0, catLength = categories.length; cat < catLength; cat ++) {
+              self[categories[cat]] = null;
+            }
 
             // navigate back to the dashboard
             $scope.changeState('dashboard');
@@ -110,12 +132,13 @@ angular.module('eventPlannerApp')
 
       }
 
-      console.log('Creating event...');
     };
 
     this.inviteGuests = function(id) {
       this.guestList.forEach(function(guest) {
-        self.inviteGuest(guest.text, id);
+        if (guest.text !== usercreds.user.$id) {
+          self.inviteGuest(guest.text, id);
+        }
       });
     };
 
@@ -129,9 +152,9 @@ angular.module('eventPlannerApp')
         // return promise and persist changes
         guestInvitedEvents.$loaded().then(function() {
           guestInvitedEvents.$add({event:id}).then(function() {
-            console.log('Invited ' + guest);
+            // success
           }, function() {
-            console.log('Failed to invite' + guest);
+            // TODO: add fallback contingency
           });
         });
       }

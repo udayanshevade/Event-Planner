@@ -10,34 +10,31 @@
 angular.module('eventPlannerApp')
   .controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$firebaseObject', 'usercreds', function ($rootScope, $scope, $log, $firebaseObject, usercreds) {
 
-    //var self = this;
+    var self = this;
 
-    // initialize the user login credentials
-    /*
-    this.username = usercreds.user.$id;
-    this.email = usercreds.user.account.email;
-    this.password = usercreds.user.account.password;
+    var details = ['username', 'email'];
 
-    // watch username
-    $scope.$watch(function() {
-      return self.username;
-    }, function(val) {
-      usercreds.username = val;
-    });
-    // watch email
-    $scope.$watch(function() {
-      return self.email;
-    }, function(val) {
-      usercreds.email = val;
-    });
-    // watch password
-    $scope.$watch(function() {
-      return self.password;
-    }, function(val) {
-      usercreds.password = val;
-    });
+    // create temporary cache of details in case user exits form before done
+    var watchDetail, assignDetail;
+    for (var d = 0, dLength = details.length; d < dLength; d ++) {
+      var detail = [details[d]];
+      if (usercreds[detail]) {
+        self[detail] = usercreds[detail];
+      }
+      watchDetail = (function(det) {
+        return function() {
+          return self[det];
+        };
+      })(detail);
 
-    */
+      assignDetail = (function(name) {
+        return function(val) {
+          usercreds[name] = val;
+        };
+      })(detail);
+
+      $scope.$watch(watchDetail, assignDetail);
+    }
 
     this.failure = false;
 

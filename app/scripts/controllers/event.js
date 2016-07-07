@@ -20,7 +20,6 @@ angular.module('eventPlannerApp')
 
     $scope.events.$loaded(function() {
       angular.forEach($scope.events, function(event) {
-        console.log(event.$id === self.eventID);
         if (event.$id === self.eventID) {
           self.details = event;
         }

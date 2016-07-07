@@ -23,6 +23,10 @@ html, body {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 main {
   width: 100%;
   height: 100%;
@@ -41,9 +45,9 @@ main {
 }
 
 .material-icons {
-  font-size: 2rem;
-  width: 2rem;
-  height: 2rem;
+  font-size: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .app-gate-background {
@@ -146,7 +150,8 @@ md-grid-tile-footer {
 
   &.account-container,
   &.event-container,
-  &.users-list-section {
+  &.users-list-section,
+  &.edit-container {
     max-height: none;
   }
 }
@@ -213,7 +218,9 @@ md-grid-tile-footer {
 }
 
 .forward__anim {
-  @include transition(transform 0.2s ease-in);
+  @include transition-property(transform);
+  @include transition-duration(0.2s)
+  @include transition-timing-function(ease-in);
   &:hover {
     @include transform(translateX(0.5rem));
   }
@@ -227,14 +234,30 @@ md-grid-tile-footer {
 }
 
 .up__anim {
-  @include transition(transform 0.2s ease-in);
+  @include transition-property(transform);
+  @include transition-duration(0.2s)
+  @include transition-timing-function(ease-in);
   &:hover {
     @include transform(translateY(-0.5rem));
   }
 }
 
 .pencil-down__anim {
-  @include transition(transform 0.175s ease-in-out);
+  @include transition-property(transform);
+  @include transition-duration(0.175s)
+  @include transition-timing-function(ease-in);
+}
+
+.flip__anim {
+  @include transition-property(transform);
+  @include transition-duration(0.25s)
+  @include transition-timing-function(ease-in);
+}
+
+.rotate__anim {
+  @include transition-property(transform);
+  @include transition-duration(0.25s);
+  @include transition-timing-function(ease-in-out);
 }
 
 @include keyframes(shake) {
@@ -255,11 +278,48 @@ md-grid-tile-footer {
   }
 }
 
+@include keyframes(blink) {
+  0% {
+    @include transform(scaleY(0.75rem));
+  }
+  25% {
+    @include transform(scaleY(0.5rem));
+  }
+  50% {
+    @include transform(scaleY(0));
+  }
+  75% {
+    @include transform(scaleY(-0.25rem));
+  }
+  100% {
+    @include transform(scaleY(-1));
+  }
+}
+
 .delete__button {
   &:hover {
 
     .shake__anim {
       @include animation(shake 0.4s ease-in);
+    }
+  }
+}
+
+.reset__button {
+  &:hover {
+
+    .rotate__anim {
+      @include transform(rotateZ(180deg));
+    }
+  }
+}
+
+.eye__button {
+  &:hover {
+
+    .blink__anim {
+      @include transform(none);
+      @include animation(blink 0.2s ease-in-out);
     }
   }
 }
@@ -310,6 +370,14 @@ md-input-container[disabled] {
 .header-container {
   padding: 0;
   border-bottom: 1px solid rgba(50,50,50,0.1);
+}
+
+.people__button {
+  &:hover {
+    .people__icon {
+      @include transform(rotateY(-180deg));
+    }
+  }
 }
 
 /* BEGIN dashboard styles */
@@ -372,7 +440,7 @@ md-toolbar {
   font-size: 1.8rem;
   width: 1.8rem;
   height: 1.8rem;
-  @include position(relative, -0.15rem -0.15rem null null);
+  @include position(relative, 0 -0.15rem null null);
 }
 
 .create-link {
@@ -397,6 +465,14 @@ md-toolbar {
       @include transform(rotate(-30deg));
     }
 
+  }
+}
+
+.create__button {
+  &:hover {
+    .pencil-down__anim {
+      @include transform(rotate(-30deg));
+    }
   }
 }
 
@@ -521,7 +597,9 @@ md-grid-list {
 
     md-grid-tile-footer {
       background-color: rgba(225,225,225,0.2);
-      @include transition(background-color 0.2s ease-out);
+      @include transition-property(background-color, opacity)
+      @include transition-duration(0.2s)
+      @include transition-timing-function(ease-out);
     }
 
   }
@@ -740,7 +818,7 @@ md-grid-list {
 }
 
 .guest-link {
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 1.5rem 1.5rem;
   text-decoration: none;
 
   &.md-list-item-text {
@@ -844,9 +922,17 @@ md-switch {
 @media screen and (min-width: 768px) {
 
   .material-icons {
-    font-size: 2.2rem;
-    width: 2.2rem;
-    height: 2.2rem;
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  md-grid-tile-footer {
+    .material-icons {
+      font-size: 1.8rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
   }
 
   .form-container {
@@ -921,6 +1007,7 @@ md-switch {
 
       md-grid-tile-footer {
         background-color: #fff;
+        opacity: 0;
       }
 
       &:hover {
@@ -930,6 +1017,7 @@ md-switch {
 
         md-grid-tile-footer {
           background-color: rgba(225,225,225,0.2);
+          opacity: 1;
         }
 
         .blink__anim {

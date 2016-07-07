@@ -22,7 +22,7 @@ angular
     'ngMaterial',
     'ui.timepicker'
   ])
-  .config(function($stateProvider, $urlRouterProvider, $mdDateLocaleProvider) {
+  .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/welcome');
 
@@ -97,12 +97,6 @@ angular
       ;
 
     //$locationProvider.html5Mode({enabled: true, requireBase: false});
-
-    $mdDateLocaleProvider.formatDate = function(date) {
-      if (date) {
-        return date.toDateString();
-      }
-    };
 
   })
 

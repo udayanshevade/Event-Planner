@@ -18,7 +18,6 @@ angular.module('eventPlannerApp')
 
     $scope.users.$loaded().then(function() {
       self.users = $scope.usersArray;
-      console.log(self.users);
       self.loading = false;
     });
 

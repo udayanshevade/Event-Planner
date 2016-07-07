@@ -296,6 +296,12 @@ md-grid-tile-footer {
   }
 }
 
+@include keyframes(appear) {
+  100% {
+    opacity: 1;
+  }
+}
+
 .delete__button {
   &:hover {
 
@@ -322,6 +328,18 @@ md-grid-tile-footer {
       @include animation(blink 0.2s ease-in-out);
     }
   }
+}
+
+.event-preview {
+  opacity: 0;
+  &.preview-loaded {
+    @include animation(appear 0.2s ease-in-out);
+    @include animation-fill-mode(forwards);
+  }
+}
+
+.hover-icon {
+  display: none;
 }
 
 input,
@@ -1038,6 +1056,21 @@ md-switch {
     width: 100%;
     height: 100%;
     padding: 1rem 2rem;
+  }
+
+  .hover-icon {
+    display: block;
+    @include position(absolute, null null 1.5rem calc(50% - 0.9rem));
+    @include transition(opacity 0.2s ease-in-out);
+    opacity: 0.75;
+  }
+
+  .event-preview {
+    &:hover {
+      .hover-icon {
+        opacity: 0;
+      }
+    }
   }
 
 }

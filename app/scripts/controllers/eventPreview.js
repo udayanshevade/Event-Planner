@@ -23,6 +23,7 @@ angular.module('eventPlannerApp')
     $scope.events.$loaded(function() {
       // the event data itself
       self.eventData = $scope.events[self.eventKey];
+      self.loaded = true;
       // whether the user may edit this event
       self.hasHostAccess = self.eventData.host === usercreds.username ||
         self.eventData.creator === usercreds.username;

@@ -1,8 +1,11 @@
-<section class="event-preview">
+<section class="event-preview" ng-class="{ 'preview-loaded': eventPreview.loaded }">
   <h5 class="event-preview__title">{{ eventPreview.eventData.name }}</h5>
   <h6 class="event-preview__date">{{ eventPreview.eventData.startDate }}</h6>
   <h6 class="event-preview__type">{{ eventPreview.eventData.type }}</h6>
   <p class="event-preview__message">{{ eventPreview.eventData.message }}</p>
+  <md-icon class="material-icons hover-icon" aria-label="Hover">
+    search
+  </md-icon>
   <md-grid-tile-footer layout="row" layout-align="end center">
     <a ui-sref="event({ eventID: eventPreview.eventKey })">
       <md-button class="md-icon-button eye__button" aria-label="Preview">

@@ -33,18 +33,27 @@ angular.module('eventPlannerApp')
     this.logout = function() {
       // log out of app
       this.loggedIn = false;
+      this.user = {
+        account: {}
+      };
+      this.assignCredentials();
     };
 
     this.updateCredentials = function() {
       this.user.$loaded(function() {
-        self.email = self.user.account.email;
-        self.name = self.user.account.name;
-        self.username = self.user.$id;
-        self.password = self.user.account.password;
-        self.employer = self.user.account.employer;
-        self.position = self.user.account.position;
-        self.blurb = self.user.account.blurb;
-        self.birthday = self.user.account.birthday ? new Date(self.user.account.birthday) : null;
+        self.assignCredentials();
       });
     };
+
+    this.assignCredentials = function() {
+      this.email = this.user.account.email;
+      this.name = this.user.account.name;
+      this.username = this.user.$id;
+      this.password = this.user.account.password;
+      this.employer = this.user.account.employer;
+      this.position = this.user.account.position;
+      this.blurb = this.user.account.blurb;
+      this.birthday = this.user.account.birthday ? new Date(this.user.account.birthday) : null;
+    };
+
 }]);

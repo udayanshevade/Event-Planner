@@ -9,8 +9,6 @@
 
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks('grunt-build-control');
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -450,26 +448,7 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    },
-
-
-    // build and deploy to gh-pages
-    buildcontrol: {
-      options: {
-        dir: 'dist',
-        commit: true,
-        push: true,
-        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-      },
-      pages: {
-        options: {
-          remote: 'git@github.com:udayanshevade/Event-Planner.git',
-          branch: 'gh-pages'
-        }
-      }
     }
-
-
   });
 
 

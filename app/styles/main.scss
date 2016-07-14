@@ -1,8 +1,6 @@
 // bower:scss
 // endbower
 
-@import "bourbon/bourbon";
-
 html {
   box-sizing: border-box;
 }
@@ -51,7 +49,11 @@ main {
 }
 
 .app-gate-background {
-  @include position(absolute, 0 0 0 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
 }
@@ -68,13 +70,16 @@ main {
 }
 
 .account-section {
-  @include position(relative);
+  position: relative;
 }
 
 .loading-signal {
-  @include position(absolute, 0 0 0 0);
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: #fff;
-  @include size(100% 100%);
+  width: 100%;
+  height: 100%;
 }
 
 .logout__button {
@@ -129,7 +134,11 @@ md-grid-tile-footer {
 }
 
 .app-gate-form {
-  @include position(absolute, 0 0 0 0);
+  position:absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .back-link-row {
@@ -218,85 +227,75 @@ md-grid-tile-footer {
 }
 
 .forward__anim {
-  @include transition-property(transform);
-  @include transition-duration(0.2s)
-  @include transition-timing-function(ease-in);
+  transition: transform 0.2s ease-in;
   &:hover {
-    @include transform(translateX(0.5rem));
+    transform: translateX(0.5rem);
   }
 }
 
 .backward_anim {
-  @include transition(transform 0.2s ease-in);
+  transition: transform 0.2s ease-in;
   &:hover {
-    @include transform(translateX(-0.5rem));
+    transform: translateX(-0.5rem);
   }
 }
 
 .up__anim {
-  @include transition-property(transform);
-  @include transition-duration(0.2s)
-  @include transition-timing-function(ease-in);
+  transition: transform 0.2s ease-in;
   &:hover {
-    @include transform(translateY(-0.5rem));
+    transform: translateY(-0.5rem);
   }
 }
 
 .pencil-down__anim {
-  @include transition-property(transform);
-  @include transition-duration(0.175s)
-  @include transition-timing-function(ease-in);
+  transition: transform 0.175s ease-in;
 }
 
 .flip__anim {
-  @include transition-property(transform);
-  @include transition-duration(0.25s)
-  @include transition-timing-function(ease-in);
+  transition: transform 0.25s ease-in;
 }
 
 .rotate__anim {
-  @include transition-property(transform);
-  @include transition-duration(0.25s);
-  @include transition-timing-function(ease-in-out);
+  transition: transform 0.25s ease-in-out;
 }
 
-@include keyframes(shake) {
+@keyframes shake {
   0% {
-    @include transform(translateX(-0.25rem));
+    transform: translateX(-0.25rem);
   }
   25% {
-    @include transform(translateX(0.25rem));
+    transform: translateX(0.25rem);
   }
   50% {
-    @include transform(translateX(-0.25rem));
+    transform: translateX(-0.25rem);
   }
   75% {
-    @include transform(translateX(0.25rem));
+    transform: translateX(0.25rem);
   }
   100% {
-    @include transform(translateX(0));
+    transform: translateX(0);
   }
 }
 
-@include keyframes(blink) {
+@keyframes blink {
   0% {
-    @include transform(scaleY(0.75rem));
+    transform: scaleY(0.75rem);
   }
   25% {
-    @include transform(scaleY(0.5rem));
+    transform: scaleY(0.5rem);
   }
   50% {
-    @include transform(scaleY(0));
+    transform: scaleY(0);
   }
   75% {
-    @include transform(scaleY(-0.25rem));
+    transform: scaleY(-0.25rem);
   }
   100% {
-    @include transform(scaleY(-1));
+    transform: scaleY(-1);
   }
 }
 
-@include keyframes(appear) {
+@keyframes appear {
   100% {
     opacity: 1;
   }
@@ -306,7 +305,7 @@ md-grid-tile-footer {
   &:hover {
 
     .shake__anim {
-      @include animation(shake 0.4s ease-in);
+      animation: shake 0.4s ease-in;
     }
   }
 }
@@ -315,7 +314,7 @@ md-grid-tile-footer {
   &:hover {
 
     .rotate__anim {
-      @include transform(rotateZ(180deg));
+      transform: rotateZ(180deg);
     }
   }
 }
@@ -324,8 +323,8 @@ md-grid-tile-footer {
   &:hover {
 
     .blink__anim {
-      @include transform(none);
-      @include animation(blink 0.2s ease-in-out);
+      transform: none;
+      animation: blink 0.2s ease-in-out;
     }
   }
 }
@@ -333,8 +332,8 @@ md-grid-tile-footer {
 .event-preview {
   opacity: 0;
   &.preview-loaded {
-    @include animation(appear 0.2s ease-in-out);
-    @include animation-fill-mode(forwards);
+    animation: appear 0.2s ease-in-out;
+    animation-fill-mode: forwards;
   }
 }
 
@@ -393,7 +392,7 @@ md-input-container[disabled] {
 .people__button {
   &:hover {
     .people__icon {
-      @include transform(rotateY(-180deg));
+      transform: rotateY(-180deg);
     }
   }
 }
@@ -437,8 +436,8 @@ md-toolbar {
 
 .dash-nav__list {
   padding: 0;
-  @include display(flex);
-  @include justify-content(space-around);
+  display: flex;
+  justify-content: space-around;
 }
 
 .dash-nav__list-item {
@@ -458,7 +457,9 @@ md-toolbar {
   font-size: 1.8rem;
   width: 1.8rem;
   height: 1.8rem;
-  @include position(relative, 0 -0.15rem null null);
+  position: relative;
+  top: 0;
+  right: -0.15rem;
 }
 
 .create-link {
@@ -466,7 +467,7 @@ md-toolbar {
 
 
   .create-link__text {
-    @include position(relative);
+    position: relative;
     color: #e74c3c;
     display: inline-block;
     margin: 0;
@@ -480,7 +481,7 @@ md-toolbar {
     text-decoration: none;
 
     .pencil-down__anim {
-      @include transform(rotate(-30deg));
+      transform: rotate(-30deg);
     }
 
   }
@@ -489,7 +490,7 @@ md-toolbar {
 .create__button {
   &:hover {
     .pencil-down__anim {
-      @include transform(rotate(-30deg));
+      transform: rotate(-30deg);
     }
   }
 }
@@ -611,13 +612,13 @@ md-grid-list {
     background-color: #fff;
     border-left: 1px solid rgba(200,200,200,0.5);
     border-right: 1px solid rgba(200,200,200,0.5);
-    @include transition(border-color 0.2s ease-out);
+    transition: border-color 0.2s ease-out;
 
     md-grid-tile-footer {
       background-color: rgba(225,225,225,0.2);
-      @include transition-property(background-color, opacity)
-      @include transition-duration(0.2s)
-      @include transition-timing-function(ease-out);
+      transition-property: background-color, opacity;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-out;
     }
 
   }
@@ -646,7 +647,7 @@ md-grid-list {
   vertical-align: middle;
   overflow: hidden;
   background-color: #fff;
-  @include transition(all 0.3s cubic-bezier(.55,0,.55,.2));
+  transition: all 0.3s cubic-bezier(.55,0,.55,.2);
   color: #727272;
 
   &.md-button {
@@ -741,10 +742,10 @@ md-grid-list {
     width: 0;
     border-top: 1px solid rgba(75,75,75,0.5);
     z-index: -1;
-    @include transition-property(width, position);
-    @include transition-duration(0.3s);
-    @include transition-delay(0.2s);
-    @include transition-timing-function(ease-in);
+    transition-property: width, position;
+    transition-duration: 0.3s;
+    transition-delay: 0.2s;
+    transition-timing-function: ease-in;
   }
 
 }
@@ -752,12 +753,16 @@ md-grid-list {
 .title--flair {
 
   &:before {
-    @include position(absolute, 50% 100% null null);
+    position: absolute;
+    top: 50%;
+    right: 100%;
     width: 60px;
   }
 
   &:after {
-    @include position(absolute, 50% null null 100%);
+    position: absolute;
+    top: 50%;
+    left: 100%;
     width: 60px;
   }
 }
@@ -981,7 +986,7 @@ md-switch {
   .navbar-nav {
 
     .logout {
-      @include transition(opacity 0.3s ease-in-out);
+      transition: opacity 0.3s ease-in-out;
       position: absolute;
       left: 0;
     }
@@ -1039,11 +1044,11 @@ md-switch {
         }
 
         .blink__anim {
-          @include transition-delay(0.2s);
-          @include transition-property(transform);
-          @include transition-duration(0.4s);
-          @include transition-timing-function(ease);
-          @include transform(scaleY(-1));
+          transition-delay:0.2s;
+          transition-property: transform;
+          transition-duration: 0.4s;
+          transition-timing-function: ease;
+          transform: scaleY(-1);
         }
 
 
@@ -1060,8 +1065,10 @@ md-switch {
 
   .hover-icon {
     display: block;
-    @include position(absolute, null null 1.5rem calc(50% - 0.9rem));
-    @include transition(opacity 0.2s ease-in-out);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    transition: opacity 0.2s ease-in-out;
     opacity: 0.75;
   }
 

@@ -9,11 +9,15 @@ Coming *soon*!
 
 ## Build & development
 
+Run `npm install`, then `bower install` to install all dependencies.
+
 Run `grunt` for building and `grunt serve` for preview.
 
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+Tests to be added *soon*!
 
 ## Description
 

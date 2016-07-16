@@ -62,7 +62,7 @@
               </md-content>
               <md-input-container>
                 <label class="form__text form__label">starts at</label>
-                <input name="startTime" ng-model="edit.startTime" ui-timepicker earlier-than="edit.endTime" earlier-than-date="edit.endDate" later-than="edit.currentTime" later-than-date="edit.currentDate" related-date="edit.startDate" required class="form__event-start">
+                <input type="text" name="startTime" ng-model="edit.startTime" ui-timepicker earlier-than="edit.endTime" earlier-than-date="edit.endDate" later-than="edit.currentTime" later-than-date="edit.currentDate" related-date="edit.startDate" required class="form__event-start">
                 <aside ng-messages="editForm.startTime.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="editForm.startTime.$invalid">Please pick a valid start time.</div>
                   <div class="form__feedback--error" ng-message="laterThan">Pick a later start time.</div>
@@ -86,7 +86,7 @@
               </md-content>
               <md-input-container>
                 <label class="form__text form__label">ends at</label>
-                <input name="endTime" ng-model="edit.endTime" ui-timepicker later-than="edit.startTime" later-than-date="edit.startDate" related-date="edit.endDate" required class="form__event-end">
+                <input type="text" name="endTime" ng-model="edit.endTime" ui-timepicker later-than="edit.startTime" later-than-date="edit.startDate" related-date="edit.endDate" required class="form__event-end">
                 <aside ng-messages="editForm.endTime.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="editForm.endTime.$invalid">Please pick a valid end time</div>
                   <div class="form__feedback--error" ng-message="laterThan">The event must end after it begins.</div>

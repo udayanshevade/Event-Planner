@@ -7,29 +7,25 @@
     search
   </md-icon>
   <md-grid-tile-footer layout="row" layout-align="end center">
-    <a ui-sref="event({ eventID: eventPreview.eventKey })">
-      <md-button class="md-icon-button eye__button" aria-label="Preview">
-          <md-icon class="material-icons eye__icon blink__anim step"
-            ng-class="md-18">
-              visibility
-          </md-icon>
-          <md-tooltip md-direction="bottom">
-            view
-          </md-tooltip>
-      </md-button>
+    <a ui-sref="event({ eventID: eventPreview.eventKey })" class="md-icon-button nav__button eye__button" aria-label="View event: {{ eventPreview.eventData.name }}">
+      <md-icon class="material-icons eye__icon blink__anim step"
+        ng-class="md-18">
+          visibility
+      </md-icon>
+      <md-tooltip md-direction="bottom">
+        view
+      </md-tooltip>
     </a>
-    <a ui-sref="event-edit({ eventID: eventPreview.eventKey })">
-      <md-button class="md-icon-button create__button" aria-label="Preview">
-          <md-icon class="material-icons create__icon pencil-down__anim step"
-            ng-class="md-18">
-              edit
-          </md-icon>
-          <md-tooltip md-direction="bottom">
-            edit
-          </md-tooltip>
-      </md-button>
+    <a ui-sref="event-edit({ eventID: eventPreview.eventKey })" class="md-icon-button nav__button create__button" aria-label="Edit event: {{ eventPreview.eventData.name }}">
+      <md-icon class="material-icons create__icon pencil-down__anim step"
+        ng-class="md-18">
+          edit
+      </md-icon>
+      <md-tooltip md-direction="bottom">
+        edit
+      </md-tooltip>
     </a>
-    <md-button ng-if="eventPreview.hasHostAccess" class="md-icon-button delete__button" aria-label="Remove">
+    <md-button ng-if="eventPreview.hasHostAccess" class="md-icon-button nav__button delete__button" aria-label="Remove event: {{ eventPreview.eventData.name }}">
       <md-icon class="material-icons shake__anim step"
           ng-class="md-18"
           ng-click="eventPreview.confirmDelete($event)">

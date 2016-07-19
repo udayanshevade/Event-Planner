@@ -127,9 +127,28 @@ md-toolbar:not(.md-menu-toolbar) {
   }
 }
 
+.nav__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+}
+
+.nav__button {
+  display: block;
+  margin: 0 0.6rem;
+  padding: 0.8rem;
+  width: 4rem;
+  height: 4rem;
+  line-height: 2.4rem;
+}
+
 md-grid-tile-footer {
   md-icon {
     color: #e74c3c;
+  }
+
+  figcaption {
+    display: flex;
   }
 }
 

@@ -16,14 +16,11 @@
         back
       </md-tooltip>
     </md-button>
-    <a ui-sref="dashboard" class="link">
-      <md-button aria-label="Back"
-      class="md-icon-button back__button launch">
-        <md-icon class="material-icons step"
-          ng-class="md-18">
-            home
-        </md-icon>
-      </md-button>
+    <a ui-sref="dashboard" class="link nav__button">
+      <md-icon aria-label="Home" class="material-icons step"
+        ng-class="md-18">
+          home
+      </md-icon>
       <md-tooltip>
         home
       </md-tooltip>
@@ -44,7 +41,7 @@
               <label class="form__text form__label">
                 name
               </label>
-              <input type="text" name="accountName" ng-model="account.name" class="form__account-name name-input" autocomplete="name" autofocus>
+              <input type="text" name="accountName" ng-model="account.name" class="form__account-name name-input" autocomplete="name" autofocus ng-autofocus>
               <div class="hint" ng-hide="accountForm.accountName.$invalid">What's your name?</div>
             </md-input-container>
           </div>

@@ -4,15 +4,13 @@
     <h4 class="guest-name">{{ userPreview.username }}</h4>
     <p class="guest-message">{{ userPreview.details.name }}</p>
   </div>
-  <a ui-sref="user({ handle: userPreview.username })" class="md-secondary">
-    <md-button class="md-icon-button eye__button" aria-label="Preview">
-        <md-icon class="material-icons eye__icon blink__anim step"
-          ng-class="md-18">
-            visibility
-        </md-icon>
-        <md-tooltip md-direction="bottom">
-          view
-        </md-tooltip>
-    </md-button>
+  <a ui-sref="user({ handle: userPreview.username })" class="md-secondary md-icon-button eye__button" aria-label="Preview guest: {{ userPreview.details.name || userPreview.username }}">
+    <md-icon class="material-icons eye__icon blink__anim step"
+      ng-class="md-18">
+        visibility
+    </md-icon>
+    <md-tooltip md-direction="bottom">
+      view
+    </md-tooltip>
   </a>
 </md-list-item>

@@ -9,9 +9,15 @@ Coming *soon*!
 
 ## Build & development
 
-Run `npm install`, then `bower install` to install all dependencies.
+1. Download zip, or clone from:
 
-Run `grunt` for building and `grunt serve` for preview.
+https://github.com/udayanshevade/Event-Planner.git
+
+2. Run `npm install`, then `bower install` to install all dependencies.
+
+3. Run `grunt` for building and `grunt serve` for preview.
+
+4. If you choose to build the app, run a simple server in the dist folder and navigate to the port of your choice
 
 ## Testing
 

@@ -419,6 +419,11 @@ md-input-container[disabled] {
 /* BEGIN dashboard styles */
 
 md-toolbar {
+
+  &.navbar-nav {
+    background-color: #212121;
+  }
+
   &.dash__toolbar {
     padding: 1rem 0;
     box-shadow: 1px 2px 3px rgba(160,160,160,0.3);
@@ -439,7 +444,7 @@ md-toolbar {
 
   .app-title {
     font-size: 1.8rem;
-    color: #212121;
+    color: #e74c3c;
   }
 
   .dash__title {
@@ -1007,7 +1012,7 @@ md-switch {
     .logout {
       transition: opacity 0.3s ease-in-out;
       position: absolute;
-      left: 0;
+      left: calc(50% - 1rem);
     }
 
     .md-icon-button {

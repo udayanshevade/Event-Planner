@@ -44,12 +44,13 @@
           </div>
           <div layout="column" layout-gt-xs="row" layout-align="space-between center" class="form__row dates__row">
             <!-- Set the EVENT START TIME -->
-            <div layout="column" layout-align="center center" class="form__row date__row times__row">
+            <div layout="column" class="date__row times__row">
               <md-content>
                 <label class="form__text form__label">
                   when is it
                 </label>
                 <md-datepicker type="date" name="startDate" ng-model="edit.startDate" required md-min-date="edit.currentDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+                <div class="hint">Select a date from the calendar.</div>
                 <aside ng-messages="editForm.startDate.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="valid">Please pick a valid date</div>
                   <div class="form__feedback--error" ng-message="mindate">Please avoid a past date.</div>
@@ -62,7 +63,7 @@
                 <input type="text" name="startTime" ng-model="edit.startTime" ui-timepicker earlier-than="edit.endTime" earlier-than-date="edit.endDate" later-than="edit.currentTime" later-than-date="edit.currentDate" related-date="edit.startDate" required class="form__event-start">
                 <aside ng-messages="editForm.startTime.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="editForm.startTime.$invalid">Please pick a valid start time.</div>
-                  <div class="form__feedback--error" ng-message="laterThan">Pick a later start time.</div>
+                  <div class="form__feedback--error" ng-message="laterThan">Please pick a later start time.</div>
                   <div class="form__feedback--error" ng-message="earlierThan">The event must start before it ends.</div>
                   <div class="form__feedback--error" ng-message="required">A start time is needed.</div>
                 </aside>
@@ -74,7 +75,8 @@
                 <label class="form__text form__label">
                   until
                 </label>
-                <md-datepicker type="date" name="endDate" ng-model="edit.endDate" required md-min-date="edit.startDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+                <md-datepicker type="date" name="endDate" ng-model="edit.endDate" md-min-date="edit.startDate" md-placeholder="Enter date" md-open-on-focus required></md-datepicker>
+                <div class="hint">Or type in a date: MM/DD/YYYY</div>
                 <aside ng-messages="editForm.endDate.$error" md-auto-hide="false">
                   <div class="form__feedback--error" ng-message="valid">Please pick a valid date</div>
                   <div class="form__feedback--error" ng-message="mindate">The event must end after it begins.</div>

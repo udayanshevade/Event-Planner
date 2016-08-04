@@ -51,6 +51,8 @@ angular.module('eventPlannerApp')
 
       this.startDate = new Date(self.details.startDate) || null;
       this.endDate = new Date(self.details.endDate) || null;
+      console.log(this.startDate);
+      console.log(this.endDate);
       this.startTime = new Date(self.details.startDate + ' ' + self.details.startTime);
       this.endTime = new Date(self.details.endDate + ' ' + self.details.endTime);
 
@@ -94,6 +96,8 @@ angular.module('eventPlannerApp')
 
       if ($scope.editForm.$valid) {
 
+        self.loading = true;
+
         // convert dates to strings for storage in Firebase
         this.startDateString = this.startDate.toDateString();
         this.endDateString = this.endDate.toDateString();
@@ -136,12 +140,14 @@ angular.module('eventPlannerApp')
               // no change in guest list
               self.updateInvites();
             }
+            self.loading = false;
             // navigate back to the dashboard
             $scope.changeState('event', {
               'eventID': self.eventID
             });
           }, function() {
             // error handling -- failure to add to main events object
+            self.loading = false;
           });
 
       }

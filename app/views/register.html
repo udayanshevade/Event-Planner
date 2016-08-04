@@ -36,7 +36,7 @@
               <input type="email" class="form__email" name="email" required autocomplete ng-model="reg.email">
               <aside ng-messages="registerForm.email.$error" md-auto-hide="false">
                 <div class="form__feedback--error" ng-message="required" ng-show="registerForm.email.$touched && registerForm.email.$invalid">A valid email is required.</div>
-                <div class="form__feedback--error" ng-message="valid">Please enter a valid email.</div>
+                <div class="form__feedback--error" ng-message="email">Please enter a valid email: user@domain.</div>
               </aside>
             </md-input-container>
           </div>

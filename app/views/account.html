@@ -52,9 +52,9 @@
                 set email
               </label>
               <input type="email" name="accountEmail" ng-model="account.email" class="form__email email-input" autocomplete="email">
-              <div class="hint">What email do you want to use?</div>
+              <div class="hint" ng-hide="accountForm.accountEmail.$invalid">What email do you want to use?</div>
               <aside ng-messages="accountForm.accountEmail.$error" md-auto-hide="false">
-                <div class="form__feedback form__feedback--error" ng-message="email">must be a valid email</div>
+                <div class="form__feedback form__feedback--error" ng-message="email">must be a valid email: user@domain</div>
               </aside>
             </md-input-container>
           </div>

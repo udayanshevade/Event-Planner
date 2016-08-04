@@ -20,7 +20,10 @@
           <div layout-gt="row">
             <md-input-container class="md-block" flex>
               <label class="form__text form__label">username</label>
-              <input type="text" name="username" class="form__username" ng-model="login.username" ng-autofocus autofocus ng-disabled="login.email.length">
+              <input type="text" name="username" class="form__username" ng-model="login.username" ng-autofocus autofocus ng-disabled="login.email.length" autocomplete="off" valid-ref>
+              <aside ng-messages="loginForm.username.$error" md-auto-hide="false">
+                <div class="form__feedback--error" ng-message="validRef">Please enter a valid username.</div>
+              </aside>
             </md-input-container>
           </div>
           <div layout="row">
@@ -30,6 +33,9 @@
             <md-input-container class="md-block" flex>
               <label class="form__text form__label">email</label>
               <input type="email" name="email" class="form__email" ng-model="login.email" ng-disabled="login.username.length">
+              <aside ng-messages="loginForm.email.$error" md-auto-hide="false">
+                <div class="form__feedback--error" ng-message="email">Please enter a valid email: user@domain.</div>
+              </aside>
             </md-input-container>
           </div>
           <div layout="row">

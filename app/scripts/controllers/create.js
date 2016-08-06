@@ -125,6 +125,8 @@ angular.module('eventPlannerApp')
               self[categories[cat]] = null;
             }
 
+            createDetails.reset();
+
             // navigate back to the dashboard
             $scope.changeState('dashboard');
           }, function() {

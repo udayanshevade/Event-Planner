@@ -11,7 +11,7 @@ angular.module('eventPlannerApp')
   .directive('userPreview', function() {
     return {
       restrict: 'E',
-      templateUrl: '../../views/partials/userPreview.html',
+      templateUrl: 'views/partials/userPreview.html',
       replace: true,
       controller: 'UserPreviewCtrl',
       controllerAs: 'userPreview',

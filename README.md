@@ -1,11 +1,13 @@
 # event-planner
 
+Invite users, make contacts & plan events.
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
 ## Live Preview
 
-Coming *soon*!
+Check out the app [here](https://udayanshevade.github.io/Event-Planner/).
 
 ## Build & development
 
